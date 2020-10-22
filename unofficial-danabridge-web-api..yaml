@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: unofficial-danabridge-web-api
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'https://bridge.danalockservices.com'
+paths:
+  /bridge/v1/execute:
+    post:
+      summary: ''
+      operationId: post-bridge-v1-execute
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Execution-instance'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Command'
+      description: |
+        Retrieve device-id for use in request body using /devices/v1/{lock-serial_number}/paired_devices described in unofficial-danalock-web-api.yaml
+  /bridge/v1/poll:
+    post:
+      summary: ''
+      operationId: post-bridge-v1-poll
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Command-response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Execution-instance'
+      description: 'Use Execution-instance retrieved using /bridge/v1/execute  '
+components:
+  schemas:
+    Command:
+      title: Command
+      type: object
+      properties:
+        device:
+          type: string
+          example: '22:22:1c:a9:11:12'
+        operation:
+          type: string
+          example: afi.lock.get-state
+    Execution-instance:
+      title: Execution-instance
+      type: object
+      properties:
+        id:
+          type: string
+          example: 49dbb678-79d9-4a8e-aebf-5d258a83eb5b
+    Command-response:
+      title: Command-response
+      type: object
+      properties:
+        id:
+          type: string
+          example: b4e06993-f29a-4097-8c5d-531d4c411834
+        status:
+          type: string
+          example: Succeeded
+        result:
+          type: object
+          properties:
+            state:
+              type: string
+              example: Locked
+            lock_status:
+              type: string
+              example: Idle
+            is_blocked:
+              type: boolean
+            afi_status:
+              type: integer
+              example: 0
+            afi_status_text:
+              type: string
+              example: Ok
+  securitySchemes:
+    oauth2-scheme:
+      type: oauth2
+      flows:
+        password:
+          refreshUrl: 'https://api.danalock.com/oauth2/token'
+          scopes: {}
+          tokenUrl: 'https://api.danalock.com/oauth2/token'
+      description: |-
+        username: < email your danalock web account > password: <pw your danalock web account >
+        client_id: danalock-web
+        client_secret: should be empty
+        scope: should be empty

@@ -2,8 +2,149 @@ openapi: 3.0.0
 info:
   title: unofficial-danalock-web-api
   version: '1.0'
+  description: Web API for managing danalock devices.
 servers:
-  - url: 'http://localhost:7000'
-paths: {}
+  - url: 'https://api.danalock.com'
+paths:
+  /locks/v1:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lock'
+    parameters: []
+  '/log/v1/lock/{lock-id}':
+    parameters:
+      - schema:
+          type: string
+        name: lock-id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log-record'
+      operationId: get-log-v1-lock-lock-id
+  '/devices/v1/{lock-serial_number}/paired_devices':
+    parameters:
+      - schema:
+          type: string
+        name: lock-serial_number
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+      operationId: get-devices-v1-lock-serial_number-id-paired_devices
+      description: ''
 components:
-  schemas: {}
+  schemas:
+    Lock:
+      title: lock
+      type: object
+      x-examples: {}
+      properties:
+        id:
+          type: string
+          example: lock-123453070123
+        name:
+          type: string
+          example: lock-storage-room
+        type:
+          type: string
+          example: afi
+        address:
+          type: string
+          example: 'null'
+        timezone:
+          type: string
+          example: Europe/Stockholm
+        afi:
+          type:
+            - object
+          properties:
+            serial_number:
+              type: string
+              example: '1a:12:22:1b:0Q:A9'
+            device_type:
+              type: string
+              example: danalockv3
+    Log-record:
+      title: log-record
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: '2020-10-18T18:22:24+00:00'
+        lock:
+          type: string
+          example: lock-123453070123
+        lockname:
+          type: string
+          example: lock-storage-room
+        user:
+          type: string
+          example: someuser@somemail.com
+        operation:
+          type: string
+          example: locked
+    Device:
+      title: device
+      type: object
+      properties:
+        type:
+          example: '1'
+          type: string
+        device:
+          type: object
+          properties:
+            serial_number:
+              type: string
+              example: '22:22:1c:a9:11:12'
+            name:
+              type: string
+              example: Danabridge
+            device_type:
+              type: string
+              example: danabridgev3
+            timezone:
+              type: string
+              example: 'null'
+  securitySchemes:
+    oauth2-scheme:
+      type: oauth2
+      flows:
+        password:
+          refreshUrl: 'https://api.danalock.com/oauth2/token'
+          scopes: {}
+          tokenUrl: 'https://api.danalock.com/oauth2/token'
+      description: |-
+        username: < email your danalock web account > password: <pw your danalock web account >
+        client_id: danalock-web
+        client_secret: should be empty
+        scope: should be empty
