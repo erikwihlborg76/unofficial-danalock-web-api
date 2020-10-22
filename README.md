@@ -1,7 +1,7 @@
 # Motivation
 I wanted to schedule my lock to get locked at a specific time, but Danalock only provide APIs references to partners. So I investigated how API calls were done, and described some of them using OpenAPI specification.
 
-API calls has been split into two different files because of different server URLs - authorization is shared though.
+API calls has been split into two different files because of different server URLs - authorization is same in both though.
 Both APIs are web-based (runs over HTTP) but follow different styles.
 
 API calls described in``unofficial-danalock-web-api.yaml`` can be executed by anone with a danalock web account. REST style API. But you need a danabridge to use ``unofficial-danabridge-web-api.yaml `` RPC style API
