@@ -3,7 +3,7 @@ info:
   title: unofficial-danalock-web-api
   version: '1.0'
 servers:
-  - url: 'http://localhost:6000'
+  - url: 'http://localhost:7000'
 paths: {}
 components:
   schemas: {}
