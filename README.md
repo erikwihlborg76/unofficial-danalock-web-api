@@ -18,4 +18,6 @@ Calls to both APIs are required to retrieve the lock's status
 
 **Second, ask bridge for status using calls described in unofficial-danabridge-web-api.yaml**
 * Use ``device’s serial_number`` + ``operation`` (i.e. afi.lock.get-state)  in ``POST /bridge/v1/execute`` to ask the bridge to prepare a status message. This call will return an ``execution id`` to be used in next request.
+* Wait about **8 seconds** for the bridge to retrieve status from lock
 * Use ``execution id`` from previous call to poll the bridge for the status message ``POST /bridge/v1/poll``
+
