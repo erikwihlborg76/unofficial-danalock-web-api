@@ -9,21 +9,26 @@ paths:
   /bridge/v1/execute:
     post:
       summary: ''
-      operationId: post-bridge-v1-execute
+      operationId: ''
       responses:
         '200':
-          description: OK
+          description: ''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Execution-instance'
+                $ref: '#/components/schemas/JobId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Command'
-      description: |
-        Retrieve device-id for use in request body using /devices/v1/{lock-serial_number}/paired_devices described in unofficial-danalock-web-api.yaml
+              anyOf:
+                - $ref: '#/components/schemas/LockState'
+                - $ref: '#/components/schemas/LockOperate'
+      description: |-
+        Support three different commands:
+        1. "LockState" to get current state/status of lock
+        2. "LockOperate" passing "lock" as argument will lock the lock
+        3. "LockOperate" passing "unlock" as argument will unlock the lock
   /bridge/v1/poll:
     post:
       summary: ''
@@ -34,17 +39,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Command-response'
+                anyOf:
+                  - $ref: '#/components/schemas/LockStateResponse'
+                  - $ref: '#/components/schemas/LockOperateResponse'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Execution-instance'
-      description: 'Use Execution-instance retrieved using /bridge/v1/execute  '
+              $ref: '#/components/schemas/JobId'
+      description: 'To poll for response of the previously executed /bridge/v1/execute command. Note that you may need to way about 8 seconds for the job to complete. The body of the response must be matched to the command send in /bridge/v1/execute - i.e. if you first execute /bridge/v1/execute adding the LockState payload, then the response body for this operation will be LockStateResponse'
 components:
   schemas:
-    Command:
-      title: Command
+    LockState:
+      title: ''
       type: object
       properties:
         device:
@@ -53,14 +60,16 @@ components:
         operation:
           type: string
           example: afi.lock.get-state
-    Execution-instance:
-      title: Execution-instance
+      description: Command for representing lock state
+    JobId:
+      title: JobId
       type: object
       properties:
         id:
           type: string
           example: 49dbb678-79d9-4a8e-aebf-5d258a83eb5b
-    Command-response:
+      description: Remote operation job id
+    LockStateResponse:
       title: Command-response
       type: object
       properties:
@@ -87,6 +96,54 @@ components:
             afi_status_text:
               type: string
               example: Ok
+            dmi_status:
+              type: number
+              example: 0
+            dmi_status_text:
+              type: string
+              example: ok
+    LockOperate:
+      title: LockOperateLock
+      type: object
+      properties:
+        device:
+          type: string
+          example: '22:22:1c:a9:11:12'
+        operation:
+          type: string
+          example: afi.lock.get-state
+        arguments:
+          type: array
+          items:
+            type: string
+            enum:
+              - lock
+              - unlock
+    LockOperateResponse:
+      title: LockOperateLockResponse
+      type: object
+      properties:
+        id:
+          type: string
+          example: b4e06993-f29a-4097-8c5d-531d4c411834
+        status:
+          type: string
+          example: Succeeded
+        result:
+          type: object
+          properties:
+            afi_status:
+              type: integer
+              example: 0
+            afi_status_text:
+              type: string
+              example: Ok
+            dmi_status:
+              type: integer
+              example: 0
+            dmi_status_text:
+              type: string
+              example: ok
   securitySchemes:
     oauth2-scheme:
       type: oauth2
