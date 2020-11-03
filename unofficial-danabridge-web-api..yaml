@@ -53,6 +53,7 @@ components:
     LockState:
       title: ''
       type: object
+      description: Command for representing lock state
       properties:
         device:
           type: string
@@ -60,7 +61,8 @@ components:
         operation:
           type: string
           example: afi.lock.get-state
-      description: Command for representing lock state
+          enum:
+            - afi.lock.get-state
     JobId:
       title: JobId
       type: object
@@ -111,7 +113,9 @@ components:
           example: '22:22:1c:a9:11:12'
         operation:
           type: string
-          example: afi.lock.get-state
+          example: afi.lock.operate
+          enum:
+            - afi.lock.operate
         arguments:
           type: array
           items:
