@@ -1,0 +1,52 @@
+automation:
+
+- alias: 'Storage-room: lock'
+  trigger:
+    ...
+  action:
+  - service: rest_command.storage-room_lock
+
+- alias: 'Storage-room: unlock'
+  trigger:
+    ...
+  action:
+  - service: rest_command.storage-room_unlock
+
+
+- alias: 'Event driven Danalock sensor update'
+  trigger:
+  - platform: event
+    event_type: call_service
+    event_data:
+      domain: rest_command
+      service: storage-room_unlock
+  - platform: event
+    event_type: call_service
+    event_data:
+      domain: rest_command
+      service: storage-room_lock
+  action:
+    # Give lock 15 seconds to complete lock/unlock
+    - delay: "00:00:15"
+    - service: homeassistant.update_entity
+      data:
+        entity_id: sensor.danalock
+
+- alias: 'Alarm - Danalock not in locked state!'
+  trigger:
+    - platform: time
+      at: "21:15:00"
+  condition:
+    - condition: template
+      value_template: "{{ not is_state('sensor.danalock', 'Locked') }}"
+  action:
+  - service: notify.mobile_app_<my phone>
+    data:
+      title: "Danalock not locked!"
+      message: "Lock it!"
+  - service: light.turn_on
+    data:
+      entity_id: light.My-group
+      brightness_pct: 100
+      flash: long
+  - service: rest_command.storage-room_lock

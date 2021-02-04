@@ -1,0 +1,24 @@
+timer:
+  danalock:
+    duration: '00:15:00'
+
+sensor:
+  - platform: rest
+    resource: http://node-red-host:1880/bridge/v1/execute/status
+    name: 'Danalock'
+    timeout: 20
+    scan_interval: 6000
+
+rest_command:
+  storage-room_lock:
+    url: "http://node-red-host:1880/bridge/v1/execute/lock"
+    method: get
+    timeout: 20
+  storage-room_unlock:
+    url: "http://node-red-host:1880/bridge/v1/execute/unlock"
+    method: get
+    timeout: 20  
+  storage-room_lock_status:
+    url: "http://node-red-host:1880/bridge/v1/execute/status"
+    method: get
+    timeout: 20
