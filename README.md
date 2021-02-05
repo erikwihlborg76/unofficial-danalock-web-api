@@ -12,6 +12,11 @@ The quickest way to use the Danalock web API, is by using a Node-RED Danalock we
 ## Integrate Danalock w/ home-assistant using standard components
 Endpoints exposed from the Node-RED implementation mentioned above, can be integrated to home-assistant using platform standard components. See folder ``home-assistant`` to set it up.
 
+Discussed in Home Assistant forum thread [Unoffical danalock web API](https://community.home-assistant.io/t/unoffical-danalock-web-api/238097)
+
+
+
+
  
 # How to retrieve lock status?
 Calls to two different Danalock APIs, ``unofficial-danabridge-web-api.yaml`` & ``unofficial-danalock-web-api.yaml``, are required to retrieve the lock's status

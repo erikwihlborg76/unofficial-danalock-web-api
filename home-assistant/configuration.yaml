@@ -1,7 +1,3 @@
-timer:
-  danalock:
-    duration: '00:15:00'
-
 sensor:
   - platform: rest
     resource: http://node-red-host:1880/bridge/v1/execute/status
