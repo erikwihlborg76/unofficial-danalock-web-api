@@ -40,7 +40,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/Log-record'
       operationId: get-log-v1-lock-lock-id
-      description: '> This API is missing a description for the API call for posting a log entry. If you use the Danalock app, then at lock/unlock, such call will be executed - resulting in a log record that can be retrieved using a request to this endpoint.'
+      description: |-
+        > This API is missing a description for the API call for posting a log entry. If you use the Danalock app, then at lock/unlock, such call will be executed - resulting in a log record that can be retrieved using a request to this endpoint.
+
+        So, if you simply use the lock / unlock API calls, there will be no log records registered in the Danalock service.
   '/devices/v1/{lock-serial_number}/paired_devices':
     parameters:
       - schema:
