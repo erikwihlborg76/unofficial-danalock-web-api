@@ -7,8 +7,8 @@ The flow is designed based on the assumption that you only have a single danaloc
 Before deployment, you must set your Danalock user and passord in node "Set Danalock account credentials" (at the top).
 
 Exposed GET endpoints:
-- http://node-red-host:1880/log/v1/lock
-- http://node-red-host:1880/locks/v1
-- http://node-red-host:1880/bridge/v1/execute/status
-- http://node-red-host:1880/bridge/v1/execute/lock
-- http://node-red-host:1880/bridge/v1/execute/unlock
+- http://node-red-host:1880/danalock/log/v1/lock
+- http://node-red-host:1880/danalock/locks/v1
+- http://node-red-host:1880/danalock/bridge/v1/execute/status
+- http://node-red-host:1880/danalock/bridge/v1/execute/lock
+- http://node-red-host:1880/danalock/bridge/v1/execute/unlock
