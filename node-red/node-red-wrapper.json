@@ -163,7 +163,7 @@
         "type": "switch",
         "z": "2a82fd2c.f87992",
         "name": "Ensure context vars are set",
-        "property": "danalock-lock",
+        "property": "$parent.danalock-lock",
         "propertyType": "flow",
         "rules": [
             {
@@ -234,7 +234,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "access_token",
+                "p": "$parent.access_token",
                 "pt": "flow",
                 "to": "need-to-refresh",
                 "tot": "str"
@@ -243,7 +243,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "msg-payload",
+                "to": "$parent.msg-payload",
                 "tot": "flow"
             }
         ],
@@ -870,7 +870,7 @@
                 "t": "set",
                 "p": "danalock-password",
                 "pt": "flow",
-                "to": "the-password",
+                "to": "my-password&j",
                 "tot": "str"
             }
         ],
@@ -1003,7 +1003,7 @@
         "z": "1779f929.635777",
         "name": "",
         "env": [],
-        "x": 280,
+        "x": 290,
         "y": 340,
         "wires": [
             [
