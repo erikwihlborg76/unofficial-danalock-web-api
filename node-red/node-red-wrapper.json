@@ -45,6 +45,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 460,
         "y": 240,
         "wires": [
@@ -66,8 +67,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 510,
-        "y": 180,
+        "x": 670,
+        "y": 280,
         "wires": []
     },
     {
@@ -83,6 +84,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
+        "senderr": false,
         "x": 727,
         "y": 238,
         "wires": [
@@ -104,8 +106,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 770,
-        "y": 180,
+        "x": 910,
+        "y": 280,
         "wires": []
     },
     {
@@ -276,6 +278,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "outputs": 1,
         "x": 340,
         "y": 120,
         "wires": [
@@ -297,6 +300,9 @@
                 "wires": [
                     {
                         "id": "3df547ad.d54128"
+                    },
+                    {
+                        "id": "e0a9c7dd40294351"
                     }
                 ]
             }
@@ -315,34 +321,13 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 440,
-        "y": 200,
+        "y": 180,
         "wires": [
             [
-                "bab50ea9.cb3e5",
-                "c94192a3.36cde"
-            ]
-        ]
-    },
-    {
-        "id": "bab50ea9.cb3e5",
-        "type": "oauth2",
-        "z": "cc07b1f9.6ea84",
-        "name": "",
-        "container": "payload",
-        "access_token_url": "",
-        "grant_type": "set_by_credentials",
-        "username": "",
-        "password": "",
-        "client_id": "",
-        "client_secret": "",
-        "scope": "",
-        "x": 630,
-        "y": 160,
-        "wires": [
-            [
-                "5cedb746.710048",
-                "66d2178e.995f08"
+                "c94192a3.36cde",
+                "bab50ea9.cb3e5"
             ]
         ]
     },
@@ -370,10 +355,12 @@
         "y": 160,
         "wires": [
             [
-                "381730e7.8420a"
+                "381730e7.8420a",
+                "c997c7fd03ab2205"
             ],
             [
-                "82a1da71.83fe38"
+                "82a1da71.83fe38",
+                "371deed1d624acac"
             ]
         ]
     },
@@ -387,11 +374,13 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 450,
         "y": 120,
         "wires": [
             [
-                "bab50ea9.cb3e5"
+                "bab50ea9.cb3e5",
+                "f5cb7cce7bf4678b"
             ]
         ]
     },
@@ -400,11 +389,12 @@
         "type": "function",
         "z": "cc07b1f9.6ea84",
         "name": "Set flow context",
-        "func": "msg.headers = {};\n\nflow.set(\"$parent.refresh_token\", msg.payload.oauth2Response.body.refresh_token);\nflow.set(\"$parent.access_token\",  msg.payload.oauth2Response.body.access_token);\n\nreturn msg;",
+        "func": "msg.headers = {};\n\nflow.set(\"$parent.refresh_token\", msg.payload.refresh_token);\nflow.set(\"$parent.access_token\",  msg.payload.access_token);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 840,
         "y": 160,
         "wires": [
@@ -441,8 +431,99 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
+        "x": 770,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "bab50ea9.cb3e5",
+        "type": "oauth2",
+        "z": "cc07b1f9.6ea84",
+        "name": "",
+        "container": "payload",
+        "access_token_url": "",
+        "grant_type": "set_by_credentials",
+        "username": "",
+        "password": "",
+        "client_id": "",
+        "client_secret": "",
+        "scope": "",
+        "headers": {},
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "5cedb746.710048",
+                "66d2178e.995f08"
+            ]
+        ]
+    },
+    {
+        "id": "e0a9c7dd40294351",
+        "type": "debug",
+        "z": "cc07b1f9.6ea84",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 230,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c997c7fd03ab2205",
+        "type": "debug",
+        "z": "cc07b1f9.6ea84",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "371deed1d624acac",
+        "type": "debug",
+        "z": "cc07b1f9.6ea84",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
         "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f5cb7cce7bf4678b",
+        "type": "debug",
+        "z": "cc07b1f9.6ea84",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 100,
         "wires": []
     },
     {
@@ -497,7 +578,8 @@
         "y": 300,
         "wires": [
             [
-                "5850ff74.3ad62"
+                "5850ff74.3ad62",
+                "bab27490cae91e6e"
             ],
             [
                 "c491441a.135058"
@@ -508,7 +590,7 @@
         "id": "5850ff74.3ad62",
         "type": "change",
         "z": "1779f929.635777",
-        "name": "Prepare",
+        "name": "access_token = need to refresh, + store msg payload",
         "rules": [
             {
                 "t": "set",
@@ -530,8 +612,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 120,
-        "y": 140,
+        "x": 240,
+        "y": 120,
         "wires": [
             [
                 "499f6638.613b68",
@@ -595,6 +677,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "outputs": 1,
         "x": 286,
         "y": 597,
         "wires": [
@@ -764,6 +847,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "outputs": 1,
         "x": 700,
         "y": 500,
         "wires": [
@@ -786,8 +870,7 @@
         "y": 243,
         "wires": [
             [
-                "c7c5f532.1fa4b8",
-                "d13d6a4c.723f18"
+                "c7c5f532.1fa4b8"
             ]
         ]
     },
@@ -857,20 +940,27 @@
         "id": "5e845bdd.9da524",
         "type": "change",
         "z": "1779f929.635777",
-        "name": "Set Danalock account credentials",
+        "name": "Set credentials + reset access_token",
         "rules": [
             {
                 "t": "set",
                 "p": "danalock-username",
                 "pt": "flow",
-                "to": "user@mail.com",
+                "to": "<your email>",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "danalock-password",
                 "pt": "flow",
-                "to": "my-password&j",
+                "to": "<your password",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "access_token",
+                "pt": "flow",
+                "to": "init value",
                 "tot": "str"
             }
         ],
@@ -879,7 +969,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
+        "x": 310,
         "y": 60,
         "wires": [
             [
@@ -902,8 +992,10 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 260,
-        "y": 160,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 320,
+        "y": 220,
         "wires": [
             [
                 "3312df59.e286c"
@@ -923,8 +1015,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 790,
-        "y": 380,
+        "x": 810,
+        "y": 400,
         "wires": []
     },
     {
@@ -1024,7 +1116,8 @@
         "y": 340,
         "wires": [
             [
-                "1dd11f44.57ea71"
+                "1dd11f44.57ea71",
+                "f94f69f54312329a"
             ]
         ]
     },
@@ -1084,5 +1177,38 @@
                 "7da38d4a.fb6544"
             ]
         ]
+    },
+    {
+        "id": "f94f69f54312329a",
+        "type": "debug",
+        "z": "1779f929.635777",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "bab27490cae91e6e",
+        "type": "debug",
+        "z": "1779f929.635777",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 200,
+        "wires": []
     }
 ]
