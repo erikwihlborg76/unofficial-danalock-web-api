@@ -48,6 +48,7 @@ paths:
     parameters:
       - schema:
           type: string
+          example: '11:71:7c:b1:70:11'
         name: lock-serial_number
         in: path
         required: true
