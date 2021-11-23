@@ -2,13 +2,13 @@
 
 >A Node-RED flow that exposes **unprotected endpoints** - i.e. URLs that anyone with access to your network can access
 
-The flow is designed based on the assumption that you only have a single danalock device, and requires [node-red-contrib-oauth2](https://flows.nodered.org/node/node-red-contrib-oauth2)
+The flow now supports multiple locks. A requirement is to set the lock names (configured in the danalock web UI) to names that does not that does not contain white spaces (" ") or hyphens ("-"). Good example is "storage_room"
 
 Before deployment, you must set your Danalock user and passord in node "Set Danalock account credentials" (at the top).
 
-Exposed GET endpoints:
-- http://node-red-host:1880/danalock/log/v1/lock
-- http://node-red-host:1880/danalock/locks/v1
-- http://node-red-host:1880/danalock/bridge/v1/execute/status
-- http://node-red-host:1880/danalock/bridge/v1/execute/lock
-- http://node-red-host:1880/danalock/bridge/v1/execute/unlock
+Exposed GET endpoints (example based on a lock called "storage_room, and Node-RED runs on the host http://node-red:1880"):
+- http://node-red:1880/danalock/bridge/storage_room/execute/status
+- http://node-red:1880/danalock/bridge/storage_room/execute/lock
+- http://node-red:1880/danalock/bridge/storage_room/execute/unlock
+- http://node-red:1880/danalock/api/storage_room/log
+- http://node-red:1880/danalock/api/storage_room/locks
