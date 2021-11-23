@@ -7,7 +7,7 @@
         "category": "",
         "in": [
             {
-                "x": 60,
+                "x": 20,
                 "y": 320,
                 "wires": [
                     {
@@ -18,8 +18,8 @@
         ],
         "out": [
             {
-                "x": 1260,
-                "y": 320,
+                "x": 920,
+                "y": 720,
                 "wires": [
                     {
                         "id": "3e99b77c.66daf8",
@@ -39,15 +39,15 @@
         "id": "67dda9cd.05c2d8",
         "type": "function",
         "z": "2a82fd2c.f87992",
-        "name": "Build message",
-        "func": "msg.headers = {};\n\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\n\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"$parent.access_token\");\n\nmsg.method = \"GET\";\nmsg.url = \"https://api.danalock.com/locks/v1\";\n\n\nreturn msg;",
+        "name": "Build \"list locks\" req msg",
+        "func": "msg.headers = {};\n\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\n\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"$parent.accessToken\");\n\nmsg.method = \"GET\";\nmsg.url = \"https://api.danalock.com/locks/v1\";\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
-        "y": 240,
+        "x": 510,
+        "y": 280,
         "wires": [
             [
                 "641252a1.7afa9c",
@@ -64,11 +64,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
-        "y": 280,
+        "x": 650,
+        "y": 380,
         "wires": []
     },
     {
@@ -85,8 +86,8 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 727,
-        "y": 238,
+        "x": 770,
+        "y": 280,
         "wires": [
             [
                 "b4aa9906.7cc418",
@@ -103,31 +104,25 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 910,
-        "y": 280,
+        "x": 930,
+        "y": 380,
         "wires": []
     },
     {
         "id": "c9927432.8c1d48",
         "type": "change",
         "z": "2a82fd2c.f87992",
-        "name": "Set context variables",
+        "name": "Persist locks",
         "rules": [
             {
                 "t": "set",
-                "p": "$parent.danalock-lock",
+                "p": "$parent.locks",
                 "pt": "flow",
-                "to": "payload[0].afi.serial_number",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "$parent.danalock-lock-id",
-                "pt": "flow",
-                "to": "payload[0].id",
+                "to": "payload",
                 "tot": "msg"
             }
         ],
@@ -136,8 +131,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1023,
-        "y": 237,
+        "x": 1230,
+        "y": 320,
         "wires": [
             [
                 "e0919b3b.71ffa8"
@@ -153,10 +148,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1310,
+        "x": 1330,
         "y": 160,
         "wires": []
     },
@@ -164,12 +160,14 @@
         "id": "3e99b77c.66daf8",
         "type": "switch",
         "z": "2a82fd2c.f87992",
-        "name": "Ensure context vars are set",
-        "property": "$parent.danalock-lock",
+        "name": "Retrieve list of locks?",
+        "property": "$parent.locks",
         "propertyType": "flow",
         "rules": [
             {
-                "t": "null"
+                "t": "eq",
+                "v": "init",
+                "vt": "str"
             },
             {
                 "t": "else"
@@ -178,7 +176,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 260,
+        "x": 180,
         "y": 320,
         "wires": [
             [
@@ -193,8 +191,8 @@
         "z": "2a82fd2c.f87992",
         "name": "",
         "env": [],
-        "x": 290,
-        "y": 60,
+        "x": 610,
+        "y": 20,
         "wires": []
     },
     {
@@ -218,7 +216,7 @@
         "repair": false,
         "outputs": 2,
         "x": 1020,
-        "y": 180,
+        "y": 280,
         "wires": [
             [
                 "dda7a7cd.8876d8"
@@ -232,20 +230,20 @@
         "id": "dda7a7cd.8876d8",
         "type": "change",
         "z": "2a82fd2c.f87992",
-        "name": "Prepare",
+        "name": "Persist msg.payload + signal need for access token update",
         "rules": [
             {
                 "t": "set",
-                "p": "$parent.access_token",
+                "p": "$parent.accessToken",
                 "pt": "flow",
-                "to": "need-to-refresh",
+                "to": "Refresh me!",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$parent.msg-payload",
+                "to": "$parent.msgPayload",
                 "tot": "flow"
             }
         ],
@@ -254,8 +252,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 140,
-        "y": 126,
+        "x": 260,
+        "y": 60,
         "wires": [
             [
                 "a2a14a14.d73e48",
@@ -279,8 +277,8 @@
         "randomUnits": "seconds",
         "drop": false,
         "outputs": 1,
-        "x": 340,
-        "y": 120,
+        "x": 580,
+        "y": 100,
         "wires": [
             [
                 "67dda9cd.05c2d8"
@@ -296,7 +294,7 @@
         "in": [
             {
                 "x": 20,
-                "y": 140,
+                "y": 160,
                 "wires": [
                     {
                         "id": "3df547ad.d54128"
@@ -309,6 +307,7 @@
         ],
         "out": [],
         "env": [],
+        "meta": {},
         "color": "#DDAA99"
     },
     {
@@ -316,7 +315,7 @@
         "type": "function",
         "z": "cc07b1f9.6ea84",
         "name": "Grant type password",
-        "func": "msg.oauth2Request = { \n    \"access_token_url\": \"https://api.danalock.com/oauth2/token\", \n    \"credentials\": {\n        \"grant_type\": \"password\",\n        \"username\": `${flow.get(\"$parent.danalock-username\")}`,\n        \"password\": `${flow.get(\"$parent.danalock-password\")}`,\n        \"client_id\": \"danalock-web\",\n        \"client_secret\": \"\",\n        \"scope\": \"\"\n    }\n};\nreturn msg;",
+        "func": "msg.oauth2Request = { \n    \"access_token_url\": \"https://api.danalock.com/oauth2/token\", \n    \"credentials\": {\n        \"grant_type\": \"password\",\n        \"username\": `${flow.get(\"$parent.username\")}`,\n        \"password\": `${flow.get(\"$parent.password\")}`,\n        \"client_id\": \"danalock-web\",\n        \"client_secret\": \"\",\n        \"scope\": \"\"\n    }\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -336,12 +335,12 @@
         "type": "switch",
         "z": "cc07b1f9.6ea84",
         "name": "Retrieve access token",
-        "property": "$parent.access_token",
+        "property": "$parent.accessToken",
         "propertyType": "flow",
         "rules": [
             {
                 "t": "cont",
-                "v": "need-to-refresh",
+                "v": "Refresh me!",
                 "vt": "str"
             },
             {
@@ -369,7 +368,7 @@
         "type": "function",
         "z": "cc07b1f9.6ea84",
         "name": "Grant type refresh token",
-        "func": "msg.oauth2Request = { \n    \"access_token_url\": \"https://api.danalock.com/oauth2/token\", \n    \"credentials\": {\n        \"grant_type\": \"refresh_token\",\n        \"client_id\": \"danalock-web\",\n        \"client_secret\": \"\",\n        \"refresh_token\": `${flow.get(\"$parent.refresh_token\")}`,\n        \"scope\": \"\"\n    }\n};\nreturn msg;\n",
+        "func": "msg.oauth2Request = { \n    \"access_token_url\": \"https://api.danalock.com/oauth2/token\", \n    \"credentials\": {\n        \"grant_type\": \"refresh_token\",\n        \"client_id\": \"danalock-web\",\n        \"client_secret\": \"\",\n        \"refresh_token\": `${flow.get(\"$parent.refreshToken\")}`,\n        \"scope\": \"\"\n    }\n};\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -385,23 +384,6 @@
         ]
     },
     {
-        "id": "5cedb746.710048",
-        "type": "function",
-        "z": "cc07b1f9.6ea84",
-        "name": "Set flow context",
-        "func": "msg.headers = {};\n\nflow.set(\"$parent.refresh_token\", msg.payload.refresh_token);\nflow.set(\"$parent.access_token\",  msg.payload.access_token);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 840,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "c94192a3.36cde",
         "type": "debug",
         "z": "cc07b1f9.6ea84",
@@ -414,8 +396,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 620,
-        "y": 320,
+        "x": 610,
+        "y": 220,
         "wires": []
     },
     {
@@ -431,8 +413,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 770,
-        "y": 220,
+        "x": 810,
+        "y": 200,
         "wires": []
     },
     {
@@ -453,8 +435,8 @@
         "y": 160,
         "wires": [
             [
-                "5cedb746.710048",
-                "66d2178e.995f08"
+                "66d2178e.995f08",
+                "4d0570779b3fff5d"
             ]
         ]
     },
@@ -471,8 +453,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 230,
-        "y": 280,
+        "x": 150,
+        "y": 200,
         "wires": []
     },
     {
@@ -505,8 +487,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 410,
-        "y": 300,
+        "x": 390,
+        "y": 220,
         "wires": []
     },
     {
@@ -522,9 +504,41 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
-        "y": 100,
+        "x": 630,
+        "y": 80,
         "wires": []
+    },
+    {
+        "id": "4d0570779b3fff5d",
+        "type": "change",
+        "z": "cc07b1f9.6ea84",
+        "name": "Persist refresh + access tokens",
+        "rules": [
+            {
+                "t": "set",
+                "p": "$parent.refreshToken",
+                "pt": "flow",
+                "to": "payload.refresh_token",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "$parent.accessToken",
+                "pt": "flow",
+                "to": "payload.access_token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 140,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "1779f929.635777",
@@ -540,8 +554,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1290,
-        "y": 380,
+        "x": 1570,
+        "y": 360,
         "wires": []
     },
     {
@@ -550,8 +564,8 @@
         "z": "1779f929.635777",
         "name": "Oauth2",
         "env": [],
-        "x": 540,
-        "y": 80,
+        "x": 660,
+        "y": 100,
         "wires": []
     },
     {
@@ -574,8 +588,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 980,
-        "y": 300,
+        "x": 1260,
+        "y": 280,
         "wires": [
             [
                 "5850ff74.3ad62",
@@ -594,16 +608,16 @@
         "rules": [
             {
                 "t": "set",
-                "p": "access_token",
+                "p": "accessToken",
                 "pt": "flow",
-                "to": "need-to-refresh",
+                "to": "Refresh me!",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "msg-payload",
+                "to": "savedPayload",
                 "tot": "flow"
             }
         ],
@@ -634,8 +648,8 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 750,
-        "y": 600,
+        "x": 850,
+        "y": 860,
         "wires": [
             [
                 "adeb19b4.135a48",
@@ -648,13 +662,14 @@
         "type": "function",
         "z": "1779f929.635777",
         "name": "Build message",
-        "func": "//msg.payload = \"data to post\";\nmsg.headers = {};\n\n//msg.headers[\"content-type\"] = \"application/json\"\n//msg.headers[\"Accept\"] = \"application/json\"\n\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"access_token\");\n\nmsg.method = \"POST\";\n\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/poll\";\n\n\nreturn msg;",
+        "func": "msg.headers = {};\n\n//msg.headers[\"content-type\"] = \"application/json\"\n//msg.headers[\"Accept\"] = \"application/json\"\n\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"accessToken\");\n\nmsg.method = \"POST\";\n\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/poll\";\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 539,
-        "y": 600,
+        "libs": [],
+        "x": 639,
+        "y": 860,
         "wires": [
             [
                 "ebfd4e06.177e4",
@@ -678,49 +693,11 @@
         "randomUnits": "seconds",
         "drop": false,
         "outputs": 1,
-        "x": 286,
-        "y": 597,
+        "x": 320,
+        "y": 740,
         "wires": [
             [
                 "227e839c.872bdc"
-            ]
-        ]
-    },
-    {
-        "id": "7175b446.db1a4c",
-        "type": "function",
-        "z": "1779f929.635777",
-        "name": "Status",
-        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"access_token\");\n\n\nmsg.method = \"POST\";\nmsg.payload = {\"device\": flow.get(\"danalock-lock\"),\"operation\":\"afi.lock.get-state\"};\n\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 590,
-        "y": 320,
-        "wires": [
-            [
-                "c7c5f532.1fa4b8",
-                "d13d6a4c.723f18"
-            ]
-        ]
-    },
-    {
-        "id": "ec37b5de.157e78",
-        "type": "function",
-        "z": "1779f929.635777",
-        "name": "Lock",
-        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"access_token\");\n\n\nmsg.method = \"POST\";\nmsg.payload = {\"device\": flow.get(\"danalock-lock\"),\"operation\":\"afi.lock.operate\",\"arguments\":[\"lock\"]};\n\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 590,
-        "y": 361,
-        "wires": [
-            [
-                "c7c5f532.1fa4b8",
-                "d13d6a4c.723f18"
             ]
         ]
     },
@@ -743,30 +720,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1121,
-        "y": 600,
+        "x": 1221,
+        "y": 860,
         "wires": [
             [
                 "9af67869.4885d8"
-            ]
-        ]
-    },
-    {
-        "id": "7da38d4a.fb6544",
-        "type": "function",
-        "z": "1779f929.635777",
-        "name": "Unlock",
-        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"access_token\");\n\n\nmsg.method = \"POST\";\nmsg.payload = {\"device\":flow.get(\"danalock-lock\"),\"operation\":\"afi.lock.operate\",\"arguments\":[\"unlock\"]};\n\n\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 590,
-        "y": 400,
-        "wires": [
-            [
-                "c7c5f532.1fa4b8",
-                "d13d6a4c.723f18"
             ]
         ]
     },
@@ -779,8 +737,8 @@
         "propertyType": "msg",
         "rules": [
             {
-                "t": "eq",
-                "v": "/danalock/bridge/v1/execute/status",
+                "t": "cont",
+                "v": "/danalock/bridge/",
                 "vt": "str"
             },
             {
@@ -790,8 +748,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1150,
-        "y": 340,
+        "x": 1430,
+        "y": 600,
         "wires": [
             [
                 "c8c47d45.74109"
@@ -821,8 +779,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 935,
-        "y": 600,
+        "x": 1035,
+        "y": 860,
         "wires": [
             [
                 "ddda6135.74214"
@@ -848,29 +806,11 @@
         "randomUnits": "seconds",
         "drop": false,
         "outputs": 1,
-        "x": 700,
-        "y": 500,
+        "x": 800,
+        "y": 760,
         "wires": [
             [
                 "227e839c.872bdc"
-            ]
-        ]
-    },
-    {
-        "id": "6dcc740e.4daeac",
-        "type": "function",
-        "z": "1779f929.635777",
-        "name": "Logs",
-        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"access_token\");\n\n\nmsg.method = \"GET\";\nmsg.url = \"/danalock/log/v1/lock\" + \"/\" + flow.get(\"danalock-lock-id\");\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 590,
-        "y": 243,
-        "wires": [
-            [
-                "c7c5f532.1fa4b8"
             ]
         ]
     },
@@ -887,8 +827,9 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 792,
-        "y": 322,
+        "senderr": false,
+        "x": 1240,
+        "y": 400,
         "wires": [
             [
                 "9f304255.2f42a",
@@ -903,8 +844,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1291,
-        "y": 600,
+        "x": 1391,
+        "y": 860,
         "wires": []
     },
     {
@@ -940,27 +881,55 @@
         "id": "5e845bdd.9da524",
         "type": "change",
         "z": "1779f929.635777",
-        "name": "Set credentials + reset access_token",
+        "name": "Set credentials & reset flow varibles",
         "rules": [
             {
                 "t": "set",
-                "p": "danalock-username",
+                "p": "username",
                 "pt": "flow",
-                "to": "<your email>",
+                "to": "<change me!>",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "danalock-password",
+                "p": "password",
                 "pt": "flow",
-                "to": "<your password",
+                "to": "<change me!>",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "access_token",
+                "p": "accessToken",
                 "pt": "flow",
-                "to": "init value",
+                "to": "init",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "refreshToken",
+                "pt": "flow",
+                "to": "init",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "locks",
+                "pt": "flow",
+                "to": "init",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "lockId",
+                "pt": "flow",
+                "to": "init",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "lockSerialNumber",
+                "pt": "flow",
+                "to": "init",
                 "tot": "str"
             }
         ],
@@ -969,7 +938,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 310,
+        "x": 320,
         "y": 60,
         "wires": [
             [
@@ -994,11 +963,11 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 320,
-        "y": 220,
+        "x": 80,
+        "y": 180,
         "wires": [
             [
-                "3312df59.e286c"
+                "fee335495b155c70"
             ]
         ]
     },
@@ -1015,8 +984,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 810,
-        "y": 400,
+        "x": 1050,
+        "y": 540,
         "wires": []
     },
     {
@@ -1032,8 +1001,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 630,
-        "y": 680,
+        "x": 730,
+        "y": 940,
         "wires": []
     },
     {
@@ -1049,8 +1018,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 910,
-        "y": 680,
+        "x": 1010,
+        "y": 940,
         "wires": []
     },
     {
@@ -1066,115 +1035,25 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 950,
-        "y": 380,
+        "x": 1210,
+        "y": 320,
         "wires": []
-    },
-    {
-        "id": "a1004029.254ab",
-        "type": "function",
-        "z": "1779f929.635777",
-        "name": "Locks",
-        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"access_token\");\n\n\nmsg.method = \"GET\";\n// msg.url = \"https://api.danalock.com\" + msg.req.url;\nmsg.url = \"https://api.danalock.com/locks/v1\";\n\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 590,
-        "y": 280,
-        "wires": [
-            [
-                "c7c5f532.1fa4b8",
-                "d13d6a4c.723f18"
-            ]
-        ]
-    },
-    {
-        "id": "1dd11f44.57ea71",
-        "type": "subflow:2a82fd2c.f87992",
-        "z": "1779f929.635777",
-        "name": "",
-        "env": [],
-        "x": 290,
-        "y": 340,
-        "wires": [
-            [
-                "3312df59.e286c"
-            ]
-        ]
     },
     {
         "id": "a6b6d999.190108",
         "type": "http in",
         "z": "1779f929.635777",
         "name": "",
-        "url": "/danalock/*",
+        "url": "/danalock/api/:lock_name/*",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 120,
-        "y": 340,
+        "x": 170,
+        "y": 380,
         "wires": [
             [
-                "1dd11f44.57ea71",
-                "f94f69f54312329a"
-            ]
-        ]
-    },
-    {
-        "id": "3312df59.e286c",
-        "type": "switch",
-        "z": "1779f929.635777",
-        "name": "",
-        "property": "req.url",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "/danalock/log/v1/lock",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "/danalock/locks/v1",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "/danalock/bridge/v1/execute/status",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "/danalock/bridge/v1/execute/lock",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "/danalock/bridge/v1/execute/unlock",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 5,
-        "x": 435,
-        "y": 329,
-        "wires": [
-            [
-                "6dcc740e.4daeac"
-            ],
-            [
-                "a1004029.254ab"
-            ],
-            [
-                "7175b446.db1a4c"
-            ],
-            [
-                "ec37b5de.157e78"
-            ],
-            [
-                "7da38d4a.fb6544"
+                "f94f69f54312329a",
+                "3ea4924eef16e4aa"
             ]
         ]
     },
@@ -1187,11 +1066,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 300,
-        "y": 400,
+        "x": 310,
+        "y": 320,
         "wires": []
     },
     {
@@ -1207,8 +1087,229 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1070,
-        "y": 200,
+        "x": 1350,
+        "y": 180,
         "wires": []
+    },
+    {
+        "id": "420983d18bb37efa",
+        "type": "http in",
+        "z": "1779f929.635777",
+        "name": "",
+        "url": "/danalock/bridge/:lock_name/execute/:command",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "4464f2927152d714",
+                "3ea4924eef16e4aa"
+            ]
+        ]
+    },
+    {
+        "id": "4464f2927152d714",
+        "type": "debug",
+        "z": "1779f929.635777",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "fee335495b155c70",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "Prepare req msg",
+        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"accessToken\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 300,
+        "wires": [
+            [
+                "0d4d005765156d38"
+            ]
+        ]
+    },
+    {
+        "id": "0d4d005765156d38",
+        "type": "switch",
+        "z": "1779f929.635777",
+        "name": "",
+        "property": "req.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/log",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/locks",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/execute/status",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/execute/unlock",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/execute/lock",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 690,
+        "y": 420,
+        "wires": [
+            [
+                "b390c1f18ec07c5d"
+            ],
+            [
+                "9c7d53d34f786c03"
+            ],
+            [
+                "ab82bc80817b843d"
+            ],
+            [
+                "bd5ab9934cf417cd"
+            ],
+            [
+                "65fa471a4579ee53"
+            ]
+        ]
+    },
+    {
+        "id": "3ea4924eef16e4aa",
+        "type": "subflow:2a82fd2c.f87992",
+        "z": "1779f929.635777",
+        "name": "",
+        "env": [],
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [
+                "fee335495b155c70"
+            ]
+        ]
+    },
+    {
+        "id": "ab82bc80817b843d",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "Status",
+        "func": "msg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\n\nfor (var i = 0; i < flow.get(\"locks\").length; i++) {\n    if( flow.get(\"locks[\"+i+\"].name\") == msg.req.params.lock_name) {\n\n        var lockSerialNumber = flow.get(\"locks[\"+i+\"].afi.serial_number\");\n    }\n}\n\n\nmsg.payload = {\"device\": lockSerialNumber,\"operation\":\"afi.lock.get-state\"};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 420,
+        "wires": [
+            [
+                "d13d6a4c.723f18",
+                "c7c5f532.1fa4b8"
+            ]
+        ]
+    },
+    {
+        "id": "bd5ab9934cf417cd",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "Unlock",
+        "func": "\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\nfor (var i = 0; i < flow.get(\"locks\").length; i++) {\n    if( flow.get(\"locks[\"+i+\"].name\") == msg.req.params.lock_name) {\n\n        var lockSerialNumber = flow.get(\"locks[\"+i+\"].afi.serial_number\");\n    }\n}\n\n\nmsg.payload = {\"device\":lockSerialNumber,\"operation\":\"afi.lock.operate\",\"arguments\":[\"unlock\"]}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 460,
+        "wires": [
+            [
+                "c7c5f532.1fa4b8"
+            ]
+        ]
+    },
+    {
+        "id": "65fa471a4579ee53",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "Lock",
+        "func": "\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\nfor (var i = 0; i < flow.get(\"locks\").length; i++) {\n    if( flow.get(\"locks[\"+i+\"].name\") == msg.req.params.lock_name) {\n\n        var lockSerialNumber = flow.get(\"locks[\"+i+\"].afi.serial_number\");\n    }\n}\n\n\nmsg.payload = {\"device\":lockSerialNumber,\"operation\":\"afi.lock.operate\",\"arguments\":[\"lock\"]}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 500,
+        "wires": [
+            [
+                "c7c5f532.1fa4b8"
+            ]
+        ]
+    },
+    {
+        "id": "b390c1f18ec07c5d",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "log",
+        "func": "\nfor (var i = 0; i < flow.get(\"locks\").length; i++) {\n    if( flow.get(\"locks[\"+i+\"].name\") == msg.req.params.lock_name) {\n\n        var lockId = flow.get(\"locks[\"+i+\"].id\");\n    }\n}\n\nmsg.method = \"GET\";\nmsg.url = \"https://api.danalock.com/log/v1/lock/\" + lockId\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 320,
+        "wires": [
+            [
+                "c7c5f532.1fa4b8"
+            ]
+        ]
+    },
+    {
+        "id": "9c7d53d34f786c03",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "Locks",
+        "func": "\nmsg.method = \"GET\";\nmsg.url = \"https://api.danalock.com/locks/v1\";\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 360,
+        "wires": [
+            [
+                "c7c5f532.1fa4b8"
+            ]
+        ]
     }
 ]

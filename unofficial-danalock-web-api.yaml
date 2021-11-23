@@ -19,6 +19,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Lock'
+              examples: {}
     parameters: []
   '/log/v1/lock/{lock-id}':
     parameters:
