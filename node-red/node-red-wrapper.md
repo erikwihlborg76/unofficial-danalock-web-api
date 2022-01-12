@@ -10,5 +10,6 @@ Exposed GET endpoints (example based on a lock called "storage_room, and Node-RE
 - http://node-red:1880/danalock/bridge/storage_room/execute/status
 - http://node-red:1880/danalock/bridge/storage_room/execute/lock
 - http://node-red:1880/danalock/bridge/storage_room/execute/unlock
+- http://node-red:1880/danalock/bridge/storage_room/execute/battery-level
 - http://node-red:1880/danalock/api/storage_room/log
 - http://node-red:1880/danalock/api/storage_room/locks

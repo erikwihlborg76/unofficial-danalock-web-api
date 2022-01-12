@@ -564,7 +564,7 @@
         "z": "1779f929.635777",
         "name": "Oauth2",
         "env": [],
-        "x": 660,
+        "x": 700,
         "y": 100,
         "wires": []
     },
@@ -705,7 +705,7 @@
         "id": "e42b630b.20e04",
         "type": "change",
         "z": "1779f929.635777",
-        "name": "",
+        "name": "Build \"status\" message",
         "rules": [
             {
                 "t": "set",
@@ -720,8 +720,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1221,
-        "y": 860,
+        "x": 1420,
+        "y": 820,
         "wires": [
             [
                 "9af67869.4885d8"
@@ -786,7 +786,7 @@
                 "ddda6135.74214"
             ],
             [
-                "e42b630b.20e04"
+                "437879526c4b4f8d"
             ]
         ]
     },
@@ -844,8 +844,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1391,
-        "y": 860,
+        "x": 1650,
+        "y": 800,
         "wires": []
     },
     {
@@ -887,14 +887,14 @@
                 "t": "set",
                 "p": "username",
                 "pt": "flow",
-                "to": "<change me!>",
+                "to": "<the username>",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "password",
                 "pt": "flow",
-                "to": "<change me!>",
+                "to": "<the password>",
                 "tot": "str"
             },
             {
@@ -984,8 +984,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 540,
+        "x": 1110,
+        "y": 500,
         "wires": []
     },
     {
@@ -1087,7 +1087,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1350,
+        "x": 1430,
         "y": 180,
         "wires": []
     },
@@ -1177,11 +1177,16 @@
                 "t": "cont",
                 "v": "/execute/lock",
                 "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/execute/battery-level",
+                "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 5,
+        "outputs": 6,
         "x": 690,
         "y": 420,
         "wires": [
@@ -1199,6 +1204,9 @@
             ],
             [
                 "65fa471a4579ee53"
+            ],
+            [
+                "e6b470ae1efb3356"
             ]
         ]
     },
@@ -1309,6 +1317,85 @@
         "wires": [
             [
                 "c7c5f532.1fa4b8"
+            ]
+        ]
+    },
+    {
+        "id": "e6b470ae1efb3356",
+        "type": "function",
+        "z": "1779f929.635777",
+        "name": "Battery-level",
+        "func": "\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\nfor (var i = 0; i < flow.get(\"locks\").length; i++) {\n    if( flow.get(\"locks[\"+i+\"].name\") == msg.req.params.lock_name) {\n\n        var lockSerialNumber = flow.get(\"locks[\"+i+\"].afi.serial_number\");\n    }\n}\n\n\nmsg.payload = {\"device\":lockSerialNumber,\"operation\":\"afi.power-source.get-information2\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 560,
+        "wires": [
+            [
+                "c7c5f532.1fa4b8"
+            ]
+        ]
+    },
+    {
+        "id": "437879526c4b4f8d",
+        "type": "switch",
+        "z": "1779f929.635777",
+        "name": "",
+        "property": "req.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/execute/status",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/execute/battery-level",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1210,
+        "y": 920,
+        "wires": [
+            [
+                "e42b630b.20e04"
+            ],
+            [
+                "74189e0b4c0494e4"
+            ]
+        ]
+    },
+    {
+        "id": "74189e0b4c0494e4",
+        "type": "change",
+        "z": "1779f929.635777",
+        "name": "Build \"battery-level\" message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.battery_level",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1460,
+        "y": 940,
+        "wires": [
+            [
+                "9af67869.4885d8"
             ]
         ]
     }

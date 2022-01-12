@@ -26,6 +26,7 @@ paths:
                 - $ref: '#/components/schemas/LockState'
                 - $ref: '#/components/schemas/LockOperate'
                 - $ref: '#/components/schemas/PinCodesGetPinCodes'
+                - $ref: '#/components/schemas/PowerSourceGetInformation2'
             examples:
               LockGetState:
                 value:
@@ -63,6 +64,7 @@ paths:
         | PinCodesGetPinCodes | Get PIN codes. PIN codes need to be set in Danalock web UI|
         |LockOperateUnlock | Unlock the lock|
         |LockOperatelock | Lock the lock|
+        |PowerSourceGetInformation2 | Get battery level|
   /bridge/v1/poll:
     post:
       summary: Poll for status of executed comand
@@ -128,6 +130,47 @@ components:
           type: string
           example: 49dbb678-79d9-4a8e-aebf-5d258a83eb5b
       description: Remote operation job id
+    PowerSourceGetInformation2:
+      title: PowerSourceGetInformation2
+      type: object
+      description: Command for representing information such as battery level
+      properties:
+        device:
+          type: string
+          example: '22:22:1c:a9:11:12'
+        operation:
+          type: string
+          example: afi.power-source.get-information2
+          enum:
+            - afi.power-source.get-information2
+    PowerSourceGetInformation2Response:
+      title: PowerSourceGetInformation2Response
+      type: object
+      properties:
+        id:
+          type: string
+          example: b4e06993-f29a-4097-8c5d-531d4c411834
+        status:
+          type: string
+          example: Succeeded
+        result:
+          type: object
+          properties:
+            battery_level:
+              type: integer
+              example: Locked
+            afi_status:
+              type: integer
+              example: 0
+            afi_status_text:
+              type: string
+              example: Ok
+            dmi_status:
+              type: number
+              example: 0
+            dmi_status_text:
+              type: string
+              example: ok
     LockGetState:
       title: LockGetState
       type: object
