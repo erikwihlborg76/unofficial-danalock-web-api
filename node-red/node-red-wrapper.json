@@ -705,7 +705,7 @@
         "id": "e42b630b.20e04",
         "type": "change",
         "z": "1779f929.635777",
-        "name": "Build \"status\" message",
+        "name": "Build status response message",
         "rules": [
             {
                 "t": "set",
@@ -720,8 +720,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1420,
-        "y": 820,
+        "x": 1450,
+        "y": 760,
         "wires": [
             [
                 "9af67869.4885d8"
@@ -844,8 +844,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1650,
-        "y": 800,
+        "x": 1730,
+        "y": 860,
         "wires": []
     },
     {
@@ -887,14 +887,14 @@
                 "t": "set",
                 "p": "username",
                 "pt": "flow",
-                "to": "<the username>",
+                "to": "<username>",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "password",
                 "pt": "flow",
-                "to": "<the password>",
+                "to": "<password>",
                 "tot": "str"
             },
             {
@@ -984,8 +984,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1110,
-        "y": 500,
+        "x": 970,
+        "y": 400,
         "wires": []
     },
     {
@@ -1236,7 +1236,7 @@
         "finalize": "",
         "libs": [],
         "x": 850,
-        "y": 420,
+        "y": 460,
         "wires": [
             [
                 "d13d6a4c.723f18",
@@ -1256,7 +1256,7 @@
         "finalize": "",
         "libs": [],
         "x": 850,
-        "y": 460,
+        "y": 500,
         "wires": [
             [
                 "c7c5f532.1fa4b8"
@@ -1275,7 +1275,7 @@
         "finalize": "",
         "libs": [],
         "x": 850,
-        "y": 500,
+        "y": 540,
         "wires": [
             [
                 "c7c5f532.1fa4b8"
@@ -1332,7 +1332,7 @@
         "finalize": "",
         "libs": [],
         "x": 870,
-        "y": 560,
+        "y": 600,
         "wires": [
             [
                 "c7c5f532.1fa4b8"
@@ -1354,18 +1354,34 @@
             },
             {
                 "t": "cont",
+                "v": "/execute/lock",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/execute/unlock",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
                 "v": "/execute/battery-level",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
+        "outputs": 4,
         "x": 1210,
         "y": 920,
         "wires": [
             [
                 "e42b630b.20e04"
+            ],
+            [
+                "70d4cdaa8ac86236"
+            ],
+            [
+                "70d4cdaa8ac86236"
             ],
             [
                 "74189e0b4c0494e4"
@@ -1376,7 +1392,7 @@
         "id": "74189e0b4c0494e4",
         "type": "change",
         "z": "1779f929.635777",
-        "name": "Build \"battery-level\" message",
+        "name": "Build \"battery-level\" response message",
         "rules": [
             {
                 "t": "set",
@@ -1391,8 +1407,35 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1460,
+        "x": 1500,
         "y": 940,
+        "wires": [
+            [
+                "9af67869.4885d8"
+            ]
+        ]
+    },
+    {
+        "id": "70d4cdaa8ac86236",
+        "type": "change",
+        "z": "1779f929.635777",
+        "name": "Build lock / unlock response message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.afi_status_text",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 860,
         "wires": [
             [
                 "9af67869.4885d8"
