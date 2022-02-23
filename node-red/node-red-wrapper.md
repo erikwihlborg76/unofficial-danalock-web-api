@@ -2,7 +2,7 @@
 
 >A Node-RED flow that exposes **unprotected endpoints** - i.e. URLs that anyone with access to your network can access
 
-The flow now supports multiple locks. A requirement is to set the lock names (configured in the danalock web UI) to names that does not that does not contain white spaces (" ") or hyphens ("-"). Good example is "storage_room"
+The flow now supports multiple locks. A requirement is to set the lock names (configured in the danalock web UI) to names that does not that does not contain white spaces (" ") or hyphens ("-"). Note that the name is also case sensitive. A good example is "storage_room"
 
 Before deployment, you must set your Danalock user and passord in node "Set Danalock account credentials" (at the top).
 
