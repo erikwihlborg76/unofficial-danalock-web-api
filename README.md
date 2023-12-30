@@ -1,38 +1,108 @@
-# Introduction
-API calls has been split into two different files because of different server URLs - authorization is same in both though. Both APIs are web-based (runs over HTTP) but follow different styles.
+# Unofficial Danalock web API
 
-- API calls described in``unofficial-danalock-web-api.yaml`` can be executed by anyone with a danalock web account. Its a REST-style API. 
-- For API calls described in ``unofficial-danabridge-web-api.yaml`` you need a [Danabridge](https://danalock.com/products/danabridge-v3). This API follows another API design style - RPC-style API
+This repo contains instructions for integrating the Danalock V3 Smart lock using web API requests.
 
-# Quickest way to get started?
+Key use cases:
 
-## Expose Danalock functionality through a Node-RED flow 
-The quickest way to use the Danalock web API, is by using a Node-RED Danalock web API wrapper (see folder  ``node-red``)
+- ✅ Lock
+- ✅ Unlock
+- ✅ Lock status, i.e. determine if the lock is open or locked
 
-## Integrate Danalock w/ home-assistant using standard components
-Endpoints exposed from the Node-RED implementation mentioned above, can be integrated to home-assistant using platform standard components. See folder ``home-assistant`` to set it up.
+Table of contents:
 
-Discussed in Home Assistant forum thread [Unoffical danalock web API](https://community.home-assistant.io/t/unoffical-danalock-web-api/238097)
+- A Node-RED flow that simplifies interacting with Danalock locks.
+- OpenAPI docs that describe how to interact with the Danalock locks.
+- Home Assistant configuration samples.
+
+Requirements:
+
+- [Danalock V3 Smart Lock](https://danalock.com/products/danalock-v3-smart-lock) - The main unit unit.
+- [Danabridge](https://danalock.com/products/danabridge-v3) - To enable API access to the lock over HTTP.
+- [Danalock account](https://api.danalock.com/account/create) - For authorization and configuration using the Danalock mobile app and/or Danalock web UI.
+
+## Implementation option 1 - Simplified integration using a Node-RED flow
+
+This option involves running a Node-RED flow that abstracts away the complexity of dealing with the Danalock web APIs.
+
+>**IMPORTANT NOTE:** The API operations exposed by the Node-RED flow are NOT secure:
+>
+> - Anyone with local network access can access the API operations exposed by the Node-RED flow (and indirectly the Danalock).
+> - Data is not encrypted during transport. Instructions for securing data in transit can be found here [How To Secure Nginx with Let's Encrypt on Ubuntu 22.04](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04).
+
+### Step 1 - Set a lock name that meets the requirements
+
+Set the lock name in the [Danalock web UI](https://my.danalock.com/#/login).
+
+Lock naming rules:
+
+- Use alphanumeric characters: `0-9`, `a-z`, and `A-Z`. Note that the name is also case-sensitive.
+- Underline (`_`) is also safe to use.
+- Do NOT use white spaces (" ") or hyphens ("-").
+
+A good example is `garden_storage`.
+
+### Step 2- Install Node-RED
+
+See [Node-RED installation options](https://nodered.org/docs/getting-started/local).
+
+In all subsequent examples, Node-RED is assumed to be installed in in a host named `nodered`, and the web UI and services are exposed from [http://nodered:1880](http://nodered:1880).
 
 
+### Step 3 - Create a file that contains your Danalock credentials
+
+The Node-RED flow will look for Danalock credentials in a file named `danalock.cfg` located in the working directory of the Node-RED process. In my Node-RED installation, the location is the user's home folder.
+
+Create a file that follows the structure below, and add your Danalock account credentials:
+
+```JSON
+{
+    "username": "username@somemail.com",
+    "password": "yourpassword"
+}
+```
+
+### Step 4- Import and deploy the Node-RED flow
+
+Import `danalock.json` to Node-RED. The flow logs events using Node-RED's standard logging capability. In some Node-RED installations the log can be viewed using the command `node-red-log`.
 
 
- 
-# How to retrieve lock status?
-Calls to two different Danalock APIs, ``unofficial-danabridge-web-api.yaml`` & ``unofficial-danalock-web-api.yaml``, are required to retrieve the lock's status
+### Step 5 - How to interact with the lock
 
-**First, retrieve bridge's serial number using calls described in  unofficial-danalock-web-api.yaml**
-* Retrieve ``lock’s serial-number`` using ``GET /locks/v1``
-* Use ``lock’s serial-number`` in ``GET /devices/v1/{lock-serial_number}/paired_devices`` to retrieve paired devices
+In the below examples, the name of the lock is "storage_room".
 
-**Second, ask bridge for status using calls described in unofficial-danabridge-web-api.yaml**
-* Use ``device’s serial_number`` + ``operation`` (i.e. afi.lock.get-state)  in ``POST /bridge/v1/execute`` to ask the bridge to prepare a status message. This call will return an ``job id`` to be used in next request.
-* Wait about **8 seconds** for the bridge to retrieve status from lock
-* Use ``job id`` from previous call to poll the bridge for the status message ``POST /bridge/v1/poll``
+|  Operation| API request   |
+|---|---|
+| List locks        |`GET http://nodered:1880/danalock/locks`|
+| Get state         |`GET http://nodered:1880/danalock/storage_room/get-state`|
+| Lock the lock     |`GET http://nodered:1880/danalock/storage_room/lock`|
+| Unlock the lock   |`GET http://nodered:1880/danalock/storage_room/unlock`|
+| Get battery level |`GET http://nodered:1880/danalock/storage_room/battery-level`|
+
+Note: All operations above (except "List locks") result in a call being made to the lock. Such calls often take about 5-7 seconds to complete.
+
+## Implementation option 2 - Build from scratch
+
+Another option is to build your Danalock API client using API calls directly to the Danalock APIs. See OpenAPI docs `unofficial-danalock-web-api.yaml` and `unofficial-danabridge-web-api.yaml` for more info.
+
+### Example: How to retrieve the lock's status
+
+In this example, the server URLs are excluded.
+
+First, retrieve the bridge's serial number. Requests are described in `unofficial-danalock-web-api.yaml`.
+
+- Retrieve the lock’s serial-number using `GET /locks/v1`
+- Use the lock’s serial-number in `GET /devices/v1/{lock-serial_number}/paired_devices` to retrieve paired devices.
 
 
-# Motivation
-I wanted to schedule my lock to get locked at a specific time, but Danalock only provide APIs references to partners. So I investigated how API calls were done, and described some of them using OpenAPI specification.
+Second, ask the Danalock bridge for status. Requests are described in `unofficial-danabridge-web-api.yaml`.
+
+- Use the `lock serial_number` + `operation` (i.e. "afi.lock.get-state") in `POST /bridge/v1/execute` to ask the bridge to prepare a status message. This call will return an `job id` to be used in next request.
+- Wait about 5 - 7 seconds for the bridge to retrieve status from lock
+- Use ``job id`` from previous call to poll the bridge for the status message ``POST /bridge/v1/poll``
 
 
-**Note: Danalock may decide to change these APIs without future notice, resulting in breaking changes for anyone using them!**
+## Integrate Danalock with Home Assistant using standard components
+
+Danalock can be integrated into [Home Assistant](https://www.home-assistant.io/) using standard platform components. Instructions are provided in `home-assistant\recipe-unlock-15-minutes.md`.
+
+Integrating Danalock to Home Assistant is discussed in the [Unoffical danalock web API](https://community.home-assistant.io/t/unoffical-danalock-web-api/238097) forum post.

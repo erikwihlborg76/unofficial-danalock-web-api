@@ -25,7 +25,7 @@ timer:
 - alias: 'Unlock storage-room'
   trigger:
   - platform: device
-    device_id: 2132132131asdsad0f
+    device_id: <your device id>
     domain: hue
     type: remote_button_long_release
     subtype: turn_on
@@ -41,7 +41,7 @@ timer:
 - alias: 'Lock storage-room'
   trigger:
   - platform: device
-    device_id: 2132132131asdsad0f
+    device_id: <your device id>
     domain: hue
     type: remote_button_long_release
     subtype: turn_off

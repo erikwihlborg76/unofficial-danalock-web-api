@@ -1,0 +1,1700 @@
+[
+    {
+        "id": "f743ddd681cc39eb",
+        "type": "tab",
+        "label": "Danalock",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "74198965e3a3b6a7",
+        "type": "group",
+        "z": "f743ddd681cc39eb",
+        "name": "Init flow variables, auth + retrieve list of locks",
+        "style": {
+            "label": true,
+            "fill": "#92d04f",
+            "fill-opacity": "0.1"
+        },
+        "nodes": [
+            "0fdc18c5b24efc8d",
+            "3822468c15b0e38e",
+            "cc482ccc58f113b3",
+            "d3feb924c76e0b5b",
+            "6ee08f57531d87be",
+            "9a98958a59427abe",
+            "2a582bb42830b145",
+            "3c94e6856665b13f",
+            "61f8bf2769a0e998",
+            "d5d3e33b6771236e",
+            "569a66acf69babbb"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 1652,
+        "h": 142
+    },
+    {
+        "id": "2d2fa55353313fbd",
+        "type": "group",
+        "z": "f743ddd681cc39eb",
+        "name": "Poll Danalock job status endpoint",
+        "style": {
+            "fill": "#ff7f7f",
+            "label": true,
+            "fill-opacity": "0.11"
+        },
+        "nodes": [
+            "5b1c2675aa724161",
+            "fe9aab048e33366b",
+            "d6e7e165d1a80764",
+            "cb1930361388ef21",
+            "df91e538f34332e0",
+            "78ec499c761fd2f5",
+            "129fa618cabd5f63",
+            "370abbb1e1910a97",
+            "99060f5cc43f249f",
+            "c1375c2d65ae9af1",
+            "f3ddb3529f6aaf6f",
+            "302984209677bd1f",
+            "7ae51c5882e5178a",
+            "74b7af272ccdfd3f",
+            "e4f62a5c9cc94fe8",
+            "cdb91eb2879701a6",
+            "fe94a6fce3127db3",
+            "d7c74ec90193d807"
+        ],
+        "x": 34,
+        "y": 1019,
+        "w": 1612,
+        "h": 342
+    },
+    {
+        "id": "18a575426409155a",
+        "type": "group",
+        "z": "f743ddd681cc39eb",
+        "name": "API requests",
+        "style": {
+            "fill": "#0070c0",
+            "fill-opacity": "0.1",
+            "label": true
+        },
+        "nodes": [
+            "9d785d0d2d8580ca",
+            "b079271683184585",
+            "bcc823a036178a40",
+            "0ae030f2bb18dadf",
+            "6d6298b928f2be46",
+            "5898f4e01d5b8bc0",
+            "e6c40eca9fc88b65",
+            "f6666dc856f5de04",
+            "826a145f69f930c5",
+            "f67e1136acf80458",
+            "66fbe3391735734a",
+            "ce3feac64442ced0",
+            "7e1c740e171623cc",
+            "823a9b7b83fd9918",
+            "0bbcd6b34757855a",
+            "150646388854eee8",
+            "febc957c91ab347b",
+            "8948ceb91c71d6e1",
+            "f47f69fb754c3a24",
+            "c554c4d297611bba",
+            "ea508a9258c9e422",
+            "72fef43a2af5386b",
+            "ca5b7025d71bc892",
+            "d861391a60c50a79",
+            "6f377dfea76bcec4",
+            "26240464f0b6023e",
+            "0f14fb70c4ee942a",
+            "2267bd5908d5de2b",
+            "a4a3ee531cde6053",
+            "e67b1067d86a31b3",
+            "8e03c3f67cf0525e"
+        ],
+        "x": 24,
+        "y": 459,
+        "w": 1692,
+        "h": 522
+    },
+    {
+        "id": "317d798aa4b70c00",
+        "type": "group",
+        "z": "f743ddd681cc39eb",
+        "name": "Auth",
+        "style": {
+            "label": true,
+            "fill": "#dbcbe7",
+            "fill-opacity": "0.28"
+        },
+        "nodes": [
+            "6bf03036090247ec",
+            "7640cde3dc988ddf",
+            "375c13d0c283850b",
+            "b3987d89acfdcc52",
+            "1ac1b62251ea9f1c",
+            "7799cba252dedbb3",
+            "dd5cbab7514f5011",
+            "76b0811bda08fa12",
+            "5e9fbfbe57151034",
+            "c143e7efde5f62d7",
+            "f4e9513f2aa8cd57",
+            "b2c720411abbd02a",
+            "328e98a54f703688",
+            "4230d05b4f4f10ef",
+            "7471b2f2f51754f5"
+        ],
+        "x": 14,
+        "y": 199,
+        "w": 1512,
+        "h": 222
+    },
+    {
+        "id": "5b1c2675aa724161",
+        "type": "http request",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "bridge.danalockservices.com",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 560,
+        "y": 1220,
+        "wires": [
+            [
+                "302984209677bd1f",
+                "fe94a6fce3127db3"
+            ]
+        ]
+    },
+    {
+        "id": "fe9aab048e33366b",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Prepare request",
+        "func": "msg.headers = {};\n\nmsg.headers['Authorization'] = \"Bearer \"+ flow.get(\"accessToken\");\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/poll\";\n\nnode.log('Prepare poll');\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 1220,
+        "wires": [
+            [
+                "5b1c2675aa724161"
+            ]
+        ]
+    },
+    {
+        "id": "d6e7e165d1a80764",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Build get-state response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.state",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1350,
+        "y": 1220,
+        "wires": [
+            [
+                "78ec499c761fd2f5"
+            ]
+        ]
+    },
+    {
+        "id": "cb1930361388ef21",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "",
+        "property": "payload.status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "InProgress",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Failed",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 910,
+        "y": 1160,
+        "wires": [
+            [
+                "df91e538f34332e0"
+            ],
+            [
+                "d7c74ec90193d807"
+            ],
+            [
+                "129fa618cabd5f63"
+            ]
+        ]
+    },
+    {
+        "id": "df91e538f34332e0",
+        "type": "delay",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1160,
+        "y": 1100,
+        "wires": [
+            [
+                "c1375c2d65ae9af1",
+                "cdb91eb2879701a6"
+            ]
+        ]
+    },
+    {
+        "id": "78ec499c761fd2f5",
+        "type": "http response",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1570,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "129fa618cabd5f63",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "",
+        "property": "req.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/get-state",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/lock",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/unlock",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/battery-level",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1150,
+        "y": 1220,
+        "wires": [
+            [
+                "d6e7e165d1a80764"
+            ],
+            [
+                "99060f5cc43f249f"
+            ],
+            [
+                "99060f5cc43f249f"
+            ],
+            [
+                "370abbb1e1910a97"
+            ]
+        ]
+    },
+    {
+        "id": "370abbb1e1910a97",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Build battery-level response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.battery_level",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1320,
+        "wires": [
+            [
+                "78ec499c761fd2f5"
+            ]
+        ]
+    },
+    {
+        "id": "99060f5cc43f249f",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Build lock/unlock response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.afi_status_text",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1260,
+        "wires": [
+            [
+                "78ec499c761fd2f5"
+            ]
+        ]
+    },
+    {
+        "id": "c1375c2d65ae9af1",
+        "type": "link out",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "f3ddb3529f6aaf6f"
+        ],
+        "x": 1265,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "f3ddb3529f6aaf6f",
+        "type": "link in",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Poll in",
+        "links": [
+            "9d785d0d2d8580ca",
+            "b0569e99e0917365",
+            "c1375c2d65ae9af1"
+        ],
+        "x": 185,
+        "y": 1220,
+        "wires": [
+            [
+                "fe9aab048e33366b"
+            ]
+        ]
+    },
+    {
+        "id": "0fdc18c5b24efc8d",
+        "type": "inject",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "at deploy",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "2a582bb42830b145"
+            ]
+        ]
+    },
+    {
+        "id": "3822468c15b0e38e",
+        "type": "link call",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "",
+        "links": [
+            "6bf03036090247ec"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1080,
+        "y": 120,
+        "wires": [
+            [
+                "6ee08f57531d87be"
+            ]
+        ]
+    },
+    {
+        "id": "cc482ccc58f113b3",
+        "type": "link call",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "",
+        "links": [
+            "6d6298b928f2be46"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1440,
+        "y": 120,
+        "wires": [
+            [
+                "569a66acf69babbb"
+            ]
+        ]
+    },
+    {
+        "id": "d3feb924c76e0b5b",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "source",
+                "pt": "msg",
+                "to": "auth in",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 120,
+        "wires": [
+            [
+                "3822468c15b0e38e"
+            ]
+        ]
+    },
+    {
+        "id": "6ee08f57531d87be",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "source",
+                "pt": "msg",
+                "to": "locks in",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 120,
+        "wires": [
+            [
+                "cc482ccc58f113b3"
+            ]
+        ]
+    },
+    {
+        "id": "9a98958a59427abe",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "Init and reset flow vars",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "locks",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "danalock_username",
+                "pt": "flow",
+                "to": "payload.username",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "danalock_password",
+                "pt": "flow",
+                "to": "payload.password",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "retryAuthCount)",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 120,
+        "wires": [
+            [
+                "d3feb924c76e0b5b"
+            ]
+        ]
+    },
+    {
+        "id": "302984209677bd1f",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "200",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 770,
+        "y": 1220,
+        "wires": [
+            [
+                "cb1930361388ef21"
+            ],
+            [
+                "74b7af272ccdfd3f"
+            ]
+        ]
+    },
+    {
+        "id": "7ae51c5882e5178a",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Poll in",
+        "info": "",
+        "x": 110,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "2a582bb42830b145",
+        "type": "file in",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "read danalock.cfg",
+        "filename": "danalock.cfg",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 310,
+        "y": 120,
+        "wires": [
+            [
+                "3c94e6856665b13f",
+                "d5d3e33b6771236e"
+            ]
+        ]
+    },
+    {
+        "id": "3c94e6856665b13f",
+        "type": "json",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 490,
+        "y": 120,
+        "wires": [
+            [
+                "61f8bf2769a0e998",
+                "9a98958a59427abe"
+            ]
+        ]
+    },
+    {
+        "id": "61f8bf2769a0e998",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "A2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d5d3e33b6771236e",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "A1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9d785d0d2d8580ca",
+        "type": "link out",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "f3ddb3529f6aaf6f"
+        ],
+        "x": 1385,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "b079271683184585",
+        "type": "http request",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "bridge.danalockservices.com",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 690,
+        "y": 800,
+        "wires": [
+            [
+                "5898f4e01d5b8bc0",
+                "ca5b7025d71bc892"
+            ]
+        ]
+    },
+    {
+        "id": "bcc823a036178a40",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "200",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "401",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1120,
+        "y": 800,
+        "wires": [
+            [
+                "f6666dc856f5de04"
+            ],
+            [
+                "e67b1067d86a31b3"
+            ],
+            [
+                "d861391a60c50a79"
+            ]
+        ]
+    },
+    {
+        "id": "0ae030f2bb18dadf",
+        "type": "http in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "url": "/danalock/locks",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 580,
+        "wires": [
+            [
+                "f67e1136acf80458"
+            ]
+        ]
+    },
+    {
+        "id": "6d6298b928f2be46",
+        "type": "link in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Locks in",
+        "links": [],
+        "x": 305,
+        "y": 500,
+        "wires": [
+            [
+                "f67e1136acf80458"
+            ]
+        ]
+    },
+    {
+        "id": "5898f4e01d5b8bc0",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "C3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "e6c40eca9fc88b65",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Locks in",
+        "info": "",
+        "x": 210,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f6666dc856f5de04",
+        "type": "delay",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1270,
+        "y": 720,
+        "wires": [
+            [
+                "9d785d0d2d8580ca"
+            ]
+        ]
+    },
+    {
+        "id": "826a145f69f930c5",
+        "type": "http in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "url": "/danalock/:lock/get-state",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 700,
+        "wires": [
+            [
+                "f47f69fb754c3a24"
+            ]
+        ]
+    },
+    {
+        "id": "f67e1136acf80458",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Prepare request",
+        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \" + flow.get(\"accessToken\");\n\nnode.log('Retrieve list of locks');\nmsg.method = \"GET\";\nmsg.url = \"https://api.danalock.com/locks/v1\";\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 540,
+        "wires": [
+            [
+                "66fbe3391735734a"
+            ]
+        ]
+    },
+    {
+        "id": "66fbe3391735734a",
+        "type": "http request",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "api.danalock.com",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 540,
+        "wires": [
+            [
+                "7e1c740e171623cc",
+                "ce3feac64442ced0"
+            ]
+        ]
+    },
+    {
+        "id": "ce3feac64442ced0",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Process response",
+        "func": "if (msg.statusCode == 200)\n{\n        let locks = [];\n\n        msg.payload.forEach(lock => \n        {\n            locks.push(lock.name);\n        });\n\n\n    if (locks.length > 0)\n    {\n        flow.set(\"locks\", msg.payload);\n        node.log(`Locks found: ${locks.join(\",\")}`);\n    }\n    else\n    {\n        node.log('Request was successful, but found no locks')\n    }\n}\nelse \n{\n    node.error(`Failed to retrieve locks`);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 540,
+        "wires": [
+            [
+                "0bbcd6b34757855a"
+            ]
+        ]
+    },
+    {
+        "id": "7e1c740e171623cc",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "C1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "823a9b7b83fd9918",
+        "type": "link out",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "link out 15",
+        "mode": "return",
+        "links": [],
+        "x": 1155,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "0bbcd6b34757855a",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "property": "_linkSource",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1040,
+        "y": 540,
+        "wires": [
+            [
+                "823a9b7b83fd9918"
+            ],
+            [
+                "150646388854eee8"
+            ]
+        ]
+    },
+    {
+        "id": "150646388854eee8",
+        "type": "http response",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1180,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "febc957c91ab347b",
+        "type": "http in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "url": "/danalock/:lock/lock",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 760,
+        "wires": [
+            [
+                "f47f69fb754c3a24"
+            ]
+        ]
+    },
+    {
+        "id": "8948ceb91c71d6e1",
+        "type": "http in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "url": "/danalock/:lock/unlock",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 820,
+        "wires": [
+            [
+                "f47f69fb754c3a24"
+            ]
+        ]
+    },
+    {
+        "id": "f47f69fb754c3a24",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Prepare request",
+        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \" + flow.get(\"accessToken\");\n\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\n\nconst locks = flow.get(\"locks\");\nconst lockSerialNumber = locks.find(lock => lock.name === msg.req.params.lock).afi.serial_number;\n\nif (typeof lockSerialNumber === 'undefined')\n{\n    node.error('Danalock: Failed to resolve the serial number of the lock ' + msg.req.params.lock + '.', msg);\n}\n\n// Resolve \"action\" from URL\nconst parts = msg.req.originalUrl.split('/');\nconst action = parts.at(-1);\n\nnode.log('Prepare ' + action);\n\nif (action == \"unlock\")\n{\n    msg.payload = \n    {\n        \"device\": lockSerialNumber,\n        \"operation\": \"afi.lock.operate\",\n        \"arguments\": [\"unlock\"]\n    }\n}\nelse if (action == \"lock\")\n{    \n   msg.payload = \n    {\n        \"device\": lockSerialNumber,\n        \"operation\": \"afi.lock.operate\",\n        \"arguments\": [\"lock\"]\n    }\n}\nelse if (action == \"get-state\")\n{\n    msg.payload =\n    {\n        \"device\": lockSerialNumber,\n        \"operation\": \"afi.lock.get-state\"\n    }\n\n    //msg.payload = { \"device\": lockSerialNumber, \"operation\": \"afi.lock.get-state\" };\n\n}\nelse if (action == \"battery-level\")\n{\n    msg.payload =\n    {\n        \"device\": lockSerialNumber,\n        \"operation\": \"afi.power-source.get-information2\"\n    }\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 800,
+        "wires": [
+            [
+                "b079271683184585",
+                "c554c4d297611bba"
+            ]
+        ]
+    },
+    {
+        "id": "c554c4d297611bba",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "C2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "ea508a9258c9e422",
+        "type": "http in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "url": "/danalock/:lock/battery-level",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 880,
+        "wires": [
+            [
+                "f47f69fb754c3a24"
+            ]
+        ]
+    },
+    {
+        "id": "72fef43a2af5386b",
+        "type": "link call",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "links": [
+            "6bf03036090247ec"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1430,
+        "y": 780,
+        "wires": [
+            [
+                "0f14fb70c4ee942a"
+            ]
+        ]
+    },
+    {
+        "id": "ca5b7025d71bc892",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Process response",
+        "func": "// Resolve \"action\" from URL\nconst parts = msg.req.originalUrl.split('/');\nconst action = parts.at(-1);\n\nif (msg.statusCode == 200)\n{\n    node.log(`Action ${action} was successful`)\n    flow.set(\"retryAuthCount\", 0);\n}\nelse if (msg.statusCode == 401)\n{\n    var retryAuthCount = flow.get(\"retryAuthCount\");\n    retryAuthCount++;\n\n    flow.set(\"retryAuthCount\", retryAuthCount);\n    node.log(`Request not authorized. Will try to renew the access-token, and retry the request. Retry # ${retryAuthCount}`)\n}\nelse\n{\n    node.error(`Action ${action} failed`)\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 800,
+        "wires": [
+            [
+                "bcc823a036178a40"
+            ]
+        ]
+    },
+    {
+        "id": "d861391a60c50a79",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Unhandled outcome",
+        "func": "node.error(`Unhandled outcome`, msg)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f377dfea76bcec4",
+        "type": "link in",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Bridge in",
+        "links": [
+            "0f14fb70c4ee942a"
+        ],
+        "x": 295,
+        "y": 940,
+        "wires": [
+            [
+                "f47f69fb754c3a24"
+            ]
+        ]
+    },
+    {
+        "id": "26240464f0b6023e",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Bridge in",
+        "info": "",
+        "x": 210,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "0f14fb70c4ee942a",
+        "type": "link out",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "6f377dfea76bcec4"
+        ],
+        "x": 1535,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "2267bd5908d5de2b",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Bridge in",
+        "info": "",
+        "x": 1630,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "a4a3ee531cde6053",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Poll in",
+        "info": "",
+        "x": 1460,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "e67b1067d86a31b3",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "",
+        "property": "retryAuthCount",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1260,
+        "y": 800,
+        "wires": [
+            [
+                "72fef43a2af5386b"
+            ],
+            [
+                "8e03c3f67cf0525e"
+            ]
+        ]
+    },
+    {
+        "id": "8e03c3f67cf0525e",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "Too many auth retries",
+        "func": "node.error(`Too many auth retries`, msg)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "74b7af272ccdfd3f",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Failed to poll job status",
+        "func": "node.error(`Failed to poll job status`, msg)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6bf03036090247ec",
+        "type": "link in",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Auth in",
+        "links": [],
+        "x": 325,
+        "y": 300,
+        "wires": [
+            [
+                "1ac1b62251ea9f1c"
+            ]
+        ]
+    },
+    {
+        "id": "7640cde3dc988ddf",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Auth in",
+        "info": "",
+        "x": 250,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "375c13d0c283850b",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "B2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b3987d89acfdcc52",
+        "type": "link out",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "return to callling link node",
+        "mode": "return",
+        "links": [],
+        "x": 1175,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1ac1b62251ea9f1c",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Prepare request",
+        "func": "\nmsg.headers = {};\nmsg.headers[\"content-type\"] = \"application/x-www-form-urlencoded\";\nmsg.method = \"POST\";\nmsg.url = \"https://api.danalock.com/oauth2/token\";\n\nconst username = flow.get(\"danalock_username\");\nconst password = flow.get(\"danalock_password\")\n\nnode.log('Retrieve access token');\n\nmsg.payload =\n{\n    \"grant_type\": \"password\",\n    \"username\": username,\n    \"password\": password,\n    \"client_id\": \"danalock-web\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 300,
+        "wires": [
+            [
+                "7799cba252dedbb3"
+            ]
+        ]
+    },
+    {
+        "id": "7799cba252dedbb3",
+        "type": "http request",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "api.danalock.com",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "375c13d0c283850b",
+                "dd5cbab7514f5011"
+            ]
+        ]
+    },
+    {
+        "id": "dd5cbab7514f5011",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Process response",
+        "func": "var requestType = \"\";\n\n// If the \"_linkSource\" property exists, this was an attempt to aquire an access token (and not refresh token) \nif (typeof msg._linkSource !== 'undefined') \n{\n    requestType = \"access-token\";\n}\nelse\n{\n    requestType = \"refresh-token\";\n}\n\nif (msg.statusCode == 200)\n{\n    flow.set(\"accessToken\", msg.payload.access_token);\n    flow.set(\"refreshToken\", msg.payload.refresh_token);\n    node.log(`Successfully retrieved ${requestType}`);\n}\nelse\n{\n    flow.set(\"accessToken\", \"not set\");\n    flow.set(\"refreshToken\", \"not set\");\n    node.error(`Failed to retrieve ${requestType}`);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "f4e9513f2aa8cd57"
+            ]
+        ]
+    },
+    {
+        "id": "76b0811bda08fa12",
+        "type": "inject",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Refresh access token every 10h",
+        "props": [],
+        "repeat": "36000",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "5e9fbfbe57151034"
+            ]
+        ]
+    },
+    {
+        "id": "5e9fbfbe57151034",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Prepare request",
+        "func": "\nmsg.headers = {};\nmsg.headers[\"content-type\"] = \"application/x-www-form-urlencoded\";\nmsg.method = \"POST\";\nmsg.url = \"https://api.danalock.com/oauth2/token\";\n\nnode.log('Retrieve refresh token');\n\nmsg.payload =\n{\n    \"grant_type\": \"refresh_token\",\n    \"refresh_token\": flow.get(\"refreshToken\"),\n    \"client_id\": \"danalock-web\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 380,
+        "wires": [
+            [
+                "7799cba252dedbb3",
+                "c143e7efde5f62d7"
+            ]
+        ]
+    },
+    {
+        "id": "c143e7efde5f62d7",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "B1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f4e9513f2aa8cd57",
+        "type": "switch",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "",
+        "property": "_linkSource",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1060,
+        "y": 340,
+        "wires": [
+            [
+                "b3987d89acfdcc52"
+            ],
+            [
+                "b2c720411abbd02a"
+            ]
+        ]
+    },
+    {
+        "id": "b2c720411abbd02a",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Exit scheduled execution (no nothing more)",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "328e98a54f703688",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Return to callling link node",
+        "info": "",
+        "x": 1310,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4230d05b4f4f10ef",
+        "type": "inject",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "Manually trigger",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "7471b2f2f51754f5"
+            ]
+        ]
+    },
+    {
+        "id": "7471b2f2f51754f5",
+        "type": "link call",
+        "z": "f743ddd681cc39eb",
+        "g": "317d798aa4b70c00",
+        "name": "",
+        "links": [
+            "6bf03036090247ec"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 360,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e4f62a5c9cc94fe8",
+        "type": "comment",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Poll in",
+        "info": "",
+        "x": 1350,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "569a66acf69babbb",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "74198965e3a3b6a7",
+        "name": "Notify",
+        "func": "node.log(`Flow init completed`);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1590,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cdb91eb2879701a6",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "D5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "fe94a6fce3127db3",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "D4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "d7c74ec90193d807",
+        "type": "change",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Poll failed",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1300,
+        "y": 1160,
+        "wires": [
+            [
+                "78ec499c761fd2f5"
+            ]
+        ]
+    }
+]
