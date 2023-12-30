@@ -62,11 +62,14 @@
             "e4f62a5c9cc94fe8",
             "cdb91eb2879701a6",
             "fe94a6fce3127db3",
-            "d7c74ec90193d807"
+            "d7c74ec90193d807",
+            "6936e6f2190666df",
+            "c229dce328a2d97c",
+            "5445fa9d77e280b6"
         ],
         "x": 34,
-        "y": 1019,
-        "w": 1612,
+        "y": 1059,
+        "w": 1872,
         "h": 342
     },
     {
@@ -167,7 +170,7 @@
         "senderr": false,
         "headers": [],
         "x": 560,
-        "y": 1220,
+        "y": 1260,
         "wires": [
             [
                 "302984209677bd1f",
@@ -188,7 +191,7 @@
         "finalize": "",
         "libs": [],
         "x": 320,
-        "y": 1220,
+        "y": 1260,
         "wires": [
             [
                 "5b1c2675aa724161"
@@ -204,6 +207,13 @@
         "rules": [
             {
                 "t": "set",
+                "p": "log",
+                "pt": "msg",
+                "to": "payload.result.state",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
                 "p": "payload",
                 "pt": "msg",
                 "to": "payload.result.state",
@@ -216,10 +226,10 @@
         "to": "",
         "reg": false,
         "x": 1350,
-        "y": 1220,
+        "y": 1260,
         "wires": [
             [
-                "78ec499c761fd2f5"
+                "c229dce328a2d97c"
             ]
         ]
     },
@@ -250,10 +260,10 @@
         "repair": false,
         "outputs": 3,
         "x": 910,
-        "y": 1160,
+        "y": 1200,
         "wires": [
             [
-                "df91e538f34332e0"
+                "6936e6f2190666df"
             ],
             [
                 "d7c74ec90193d807"
@@ -282,7 +292,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 1160,
-        "y": 1100,
+        "y": 1140,
         "wires": [
             [
                 "c1375c2d65ae9af1",
@@ -298,8 +308,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1570,
-        "y": 1220,
+        "x": 1810,
+        "y": 1240,
         "wires": []
     },
     {
@@ -336,7 +346,7 @@
         "repair": false,
         "outputs": 4,
         "x": 1150,
-        "y": 1220,
+        "y": 1260,
         "wires": [
             [
                 "d6e7e165d1a80764"
@@ -361,6 +371,13 @@
         "rules": [
             {
                 "t": "set",
+                "p": "log",
+                "pt": "msg",
+                "to": "payload.result.battery_level",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
                 "p": "payload",
                 "pt": "msg",
                 "to": "payload.result.battery_level",
@@ -373,10 +390,10 @@
         "to": "",
         "reg": false,
         "x": 1360,
-        "y": 1320,
+        "y": 1360,
         "wires": [
             [
-                "78ec499c761fd2f5"
+                "c229dce328a2d97c"
             ]
         ]
     },
@@ -387,6 +404,13 @@
         "g": "2d2fa55353313fbd",
         "name": "Build lock/unlock response",
         "rules": [
+            {
+                "t": "set",
+                "p": "log",
+                "pt": "msg",
+                "to": "payload.result.afi_status_text",
+                "tot": "msg"
+            },
             {
                 "t": "set",
                 "p": "payload",
@@ -401,10 +425,10 @@
         "to": "",
         "reg": false,
         "x": 1360,
-        "y": 1260,
+        "y": 1300,
         "wires": [
             [
-                "78ec499c761fd2f5"
+                "c229dce328a2d97c"
             ]
         ]
     },
@@ -419,7 +443,7 @@
             "f3ddb3529f6aaf6f"
         ],
         "x": 1265,
-        "y": 1100,
+        "y": 1140,
         "wires": []
     },
     {
@@ -434,7 +458,7 @@
             "c1375c2d65ae9af1"
         ],
         "x": 185,
-        "y": 1220,
+        "y": 1260,
         "wires": [
             [
                 "fe9aab048e33366b"
@@ -624,7 +648,7 @@
         "repair": false,
         "outputs": 2,
         "x": 770,
-        "y": 1220,
+        "y": 1260,
         "wires": [
             [
                 "cb1930361388ef21"
@@ -642,7 +666,7 @@
         "name": "Poll in",
         "info": "",
         "x": 110,
-        "y": 1220,
+        "y": 1260,
         "wires": []
     },
     {
@@ -691,7 +715,7 @@
         "z": "f743ddd681cc39eb",
         "g": "74198965e3a3b6a7",
         "name": "A2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -709,7 +733,7 @@
         "z": "f743ddd681cc39eb",
         "g": "74198965e3a3b6a7",
         "name": "A1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -840,7 +864,7 @@
         "z": "f743ddd681cc39eb",
         "g": "18a575426409155a",
         "name": "C3",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1108,7 +1132,7 @@
         "z": "f743ddd681cc39eb",
         "g": "18a575426409155a",
         "name": "C2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1314,15 +1338,15 @@
         "type": "function",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "Failed to poll job status",
-        "func": "node.error(`Failed to poll job status`, msg)\n\nreturn msg;",
+        "name": "API request failed",
+        "func": "node.error(`API request failed`, msg)\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 1260,
+        "x": 970,
+        "y": 1320,
         "wires": [
             []
         ]
@@ -1359,7 +1383,7 @@
         "z": "f743ddd681cc39eb",
         "g": "317d798aa4b70c00",
         "name": "B2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1496,7 +1520,7 @@
         "z": "f743ddd681cc39eb",
         "g": "317d798aa4b70c00",
         "name": "B1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1612,7 +1636,7 @@
         "name": "Poll in",
         "info": "",
         "x": 1350,
-        "y": 1100,
+        "y": 1140,
         "wires": []
     },
     {
@@ -1638,8 +1662,8 @@
         "type": "debug",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "D5",
-        "active": false,
+        "name": "D2",
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1648,7 +1672,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1290,
-        "y": 1060,
+        "y": 1100,
         "wires": []
     },
     {
@@ -1656,8 +1680,8 @@
         "type": "debug",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "D4",
-        "active": false,
+        "name": "D1",
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1666,7 +1690,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 770,
-        "y": 1280,
+        "y": 1320,
         "wires": []
     },
     {
@@ -1676,6 +1700,13 @@
         "g": "2d2fa55353313fbd",
         "name": "Poll failed",
         "rules": [
+            {
+                "t": "set",
+                "p": "log",
+                "pt": "msg",
+                "to": "payload.result",
+                "tot": "msg"
+            },
             {
                 "t": "set",
                 "p": "payload",
@@ -1690,11 +1721,70 @@
         "to": "",
         "reg": false,
         "x": 1300,
-        "y": 1160,
+        "y": 1200,
         "wires": [
             [
-                "78ec499c761fd2f5"
+                "c229dce328a2d97c"
             ]
         ]
+    },
+    {
+        "id": "6936e6f2190666df",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Process response",
+        "func": "node.log(`Job not completed. Retrying...`)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 1120,
+        "wires": [
+            [
+                "df91e538f34332e0"
+            ]
+        ]
+    },
+    {
+        "id": "c229dce328a2d97c",
+        "type": "function",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "Process response",
+        "func": "node.log(msg.log)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1630,
+        "y": 1240,
+        "wires": [
+            [
+                "78ec499c761fd2f5",
+                "5445fa9d77e280b6"
+            ]
+        ]
+    },
+    {
+        "id": "5445fa9d77e280b6",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "D3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1810,
+        "y": 1180,
+        "wires": []
     }
 ]
