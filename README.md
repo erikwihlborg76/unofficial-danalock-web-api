@@ -48,9 +48,9 @@ See [Node-RED installation options](https://nodered.org/docs/getting-started/loc
 In all subsequent examples, Node-RED is assumed to be installed in in a host named `nodered`, and the web UI and services are exposed from [http://nodered:1880](http://nodered:1880).
 
 
-### Step 3 - Create a file that contains your Danalock credentials
+### Step 3a - Create a file that contains your Danalock credentials
 
-The Node-RED flow will look for Danalock credentials in a file named `danalock.cfg` located in the working directory of the Node-RED process.
+The Node-RED flow will look for Danalock credentials in a file named `danalock.cfg` located in the working directory of the Node-RED process. If you can´t create this file, please see option `Step 3 - ALTERNATIVE` below.
 
 Examples:
 
@@ -68,6 +68,12 @@ Create a file in the working directory of your Node-RED installation named `dana
     "password": "yourpassword"
 }
 ```
+
+### Step 3 - ALTERNATIVE, Set the Danalock credentials in the Node-RED flow
+
+Set your Danalock account credentials in the node named "set credentials".
+
+
 
 ### Step 4- Import and deploy the Node-RED flow
 
