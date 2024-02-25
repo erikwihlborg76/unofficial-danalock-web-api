@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2024-02-25
+
+## Changed
+
+- Refactured and improved logging.
+- Changed the endpoint for getting the state of the lock to `http://<node-red-host>:1880/danalock/<your lock>/state`.
+- Add fallback option for users who need to set Danalock username + password in the flow.
+
 ## [2.0.1] - 2023-12-30
 
 ### Fixed

@@ -50,9 +50,17 @@ In all subsequent examples, Node-RED is assumed to be installed in in a host nam
 
 ### Step 3 - Create a file that contains your Danalock credentials
 
-The Node-RED flow will look for Danalock credentials in a file named `danalock.cfg` located in the working directory of the Node-RED process. In my Node-RED installation, the location is the user's home folder.
+The Node-RED flow will look for Danalock credentials in a file named `danalock.cfg` located in the working directory of the Node-RED process.
 
-Create a file that follows the structure below, and add your Danalock account credentials:
+Examples:
+
+|  Running Node-RED | Path to `danalock.cfg`   |
+|---|---|
+| As a user named `nodered` | `/home/nodered/danalock.cfg` |
+| As the root user in a LXC container (e.g. using Proxmox)  | `/root/danalock.cfg`|
+| As an addon in Home-Assistant.  | [Set up a Node-RED context store](https://nodered.org/docs/user-guide/context#saving-context-data-to-the-file-system)|
+
+Create a file in the working directory of your Node-RED installation named `danalock.cfg` that follows the structure below, and add your Danalock account credentials:
 
 ```JSON
 {
