@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [2.0.3] - 2024-02-25
+
+## Changed
+
+- Changed how actions are identified to make it compatible with Nodered installations running in HA OS + HA Supervised.
+
 ## [2.0.2] - 2024-02-25
 
 ## Changed

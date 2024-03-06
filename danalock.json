@@ -57,8 +57,6 @@
             "6936e6f2190666df",
             "5445fa9d77e280b6",
             "556764d9b03fadfc",
-            "a8e6db5f252ce20c",
-            "db20f1981df9307e",
             "b9384ba3fda26881",
             "e1b47191373f4303",
             "ca4e68d5623677d3",
@@ -66,12 +64,13 @@
             "d06e0740d9e883ed",
             "45fa8a69399bc6cd",
             "827ca9bb3764c6b2",
-            "1294797949750889"
+            "1294797949750889",
+            "0ed97942e5b05de4"
         ],
-        "x": 34,
-        "y": 1299,
-        "w": 1732,
-        "h": 482
+        "x": 174,
+        "y": 1259,
+        "w": 1592,
+        "h": 522
     },
     {
         "id": "18a575426409155a",
@@ -116,7 +115,8 @@
             "e82ca3b2facc4a5e",
             "fb017ffbafad7392",
             "4c269421920beb64",
-            "1ccfbb5395dfb856"
+            "1ccfbb5395dfb856",
+            "06ac3c53c11664e5"
         ],
         "x": 34,
         "y": 599,
@@ -273,7 +273,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 1480,
-        "y": 1340,
+        "y": 1300,
         "wires": [
             [
                 "c1375c2d65ae9af1"
@@ -303,7 +303,7 @@
             "f3ddb3529f6aaf6f"
         ],
         "x": 1605,
-        "y": 1340,
+        "y": 1300,
         "wires": []
     },
     {
@@ -682,7 +682,8 @@
         "y": 920,
         "wires": [
             [
-                "5b06e390558482f3"
+                "5b06e390558482f3",
+                "06ac3c53c11664e5"
             ]
         ]
     },
@@ -800,7 +801,8 @@
         "y": 980,
         "wires": [
             [
-                "5b06e390558482f3"
+                "5b06e390558482f3",
+                "06ac3c53c11664e5"
             ]
         ]
     },
@@ -818,7 +820,8 @@
         "y": 1040,
         "wires": [
             [
-                "5b06e390558482f3"
+                "5b06e390558482f3",
+                "06ac3c53c11664e5"
             ]
         ]
     },
@@ -828,7 +831,7 @@
         "z": "f743ddd681cc39eb",
         "g": "18a575426409155a",
         "name": "prepare \"action\" req",
-        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \" + flow.get(\"accessToken\");\n\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\n\nconst locks = flow.get(\"locks\");\nconst lockSerialNumber = locks.find(lock => lock.name == msg.req.params.lock).afi.serial_number;\n\nif (typeof lockSerialNumber === 'undefined')\n{\n    node.error('Failed to resolve the serial number of the lock ' + msg.req.params.lock + '.', msg);\n}\n\n// Resolve \"action\" from URL\nconst parts = msg.req.originalUrl.split('/');\nconst action = parts.at(3);\nmsg.action = action;\n\nswitch (msg.action) {\n    case \"state\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.lock.get-state\"\n        }\n        break;\n    }\n    case \"lock\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.lock.operate\",\n            \"arguments\": [\"lock\"]\n        }\n        break;\n    }\n    case \"unlock\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.lock.operate\",\n            \"arguments\": [\"unlock\"]\n        }\n        break;\n    }\n    case \"battery\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.power-source.get-information2\"\n        }\n        break;\n    }\n    default: {\n        node.warn(`The action ${msg.action} is not recognized`)\n    }\n}\n\nnode.log(`Preparing for action \"${action}\"`);\n\nreturn msg;",
+        "func": "msg.headers = {};\nmsg.headers[\"content-type\"] = \"application/json\"\nmsg.headers[\"Accept\"] = \"application/json\"\nmsg.headers['Authorization'] = \"Bearer \" + flow.get(\"accessToken\");\n\nmsg.method = \"POST\";\nmsg.url = \"https://bridge.danalockservices.com/bridge/v1/execute\";\n\n\nconst locks = flow.get(\"locks\");\nconst lockSerialNumber = locks.find(lock => lock.name == msg.req.params.lock).afi.serial_number;\n\nif (typeof lockSerialNumber === 'undefined')\n{\n    node.error('Failed to resolve the serial number of the lock ' + msg.req.params.lock + '.', msg);\n}\n\n// Resolve \"action\" from URL\nconst parts = msg.req.originalUrl.split('/');\n\n//const action = parts.at(3);\nconst action = parts.at(-1);\n\nmsg.action = action;\n\nswitch (msg.action) {\n    case \"state\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.lock.get-state\"\n        }\n        break;\n    }\n    case \"lock\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.lock.operate\",\n            \"arguments\": [\"lock\"]\n        }\n        break;\n    }\n    case \"unlock\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.lock.operate\",\n            \"arguments\": [\"unlock\"]\n        }\n        break;\n    }\n    case \"battery\": {\n        msg.payload = {\n            \"device\": lockSerialNumber,\n            \"operation\": \"afi.power-source.get-information2\"\n        }\n        break;\n    }\n    default: {\n        node.warn(`The action ${msg.action} is not recognized`)\n    }\n}\n\nnode.log(`Preparing for action \"${action}\"`);\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -857,7 +860,8 @@
         "y": 1100,
         "wires": [
             [
-                "5b06e390558482f3"
+                "5b06e390558482f3",
+                "06ac3c53c11664e5"
             ]
         ]
     },
@@ -1155,7 +1159,7 @@
         "name": "poll in",
         "info": "",
         "x": 1690,
-        "y": 1340,
+        "y": 1300,
         "wires": []
     },
     {
@@ -1182,7 +1186,7 @@
         "type": "function",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "job in progress",
+        "name": "in progress",
         "func": "msg.pollRetryCount++;\n\nnode.log(`Job still in progress... Retrying with a delay`);\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
@@ -1190,8 +1194,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1300,
-        "y": 1340,
+        "x": 1290,
+        "y": 1300,
         "wires": [
             [
                 "df91e538f34332e0"
@@ -1203,7 +1207,7 @@
         "type": "debug",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "d3",
+        "name": "completed 👍",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -1212,7 +1216,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
+        "x": 1300,
         "y": 1640,
         "wires": []
     },
@@ -1267,7 +1271,8 @@
         "y": 1380,
         "wires": [
             [
-                "6936e6f2190666df"
+                "6936e6f2190666df",
+                "0ed97942e5b05de4"
             ],
             [
                 "b9384ba3fda26881",
@@ -1304,44 +1309,6 @@
             ],
             [
                 "c55808b8f9b29675"
-            ]
-        ]
-    },
-    {
-        "id": "a8e6db5f252ce20c",
-        "type": "http in",
-        "z": "f743ddd681cc39eb",
-        "g": "2d2fa55353313fbd",
-        "name": "",
-        "url": "/danalock/:lock/:jobId/get-state2",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 200,
-        "y": 1380,
-        "wires": [
-            [
-                "db20f1981df9307e"
-            ]
-        ]
-    },
-    {
-        "id": "db20f1981df9307e",
-        "type": "function",
-        "z": "f743ddd681cc39eb",
-        "g": "2d2fa55353313fbd",
-        "name": "resolve action",
-        "func": "// Resolve \"action\" from URL\nconst parts = msg.req.originalUrl.split('/');\nconst action = parts.at(3);\n\nmsg.action = action;\n\n\nmsg.payload = msg.req.params.jobId;\n\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 1380,
-        "wires": [
-            [
-                "fe9aab048e33366b"
             ]
         ]
     },
@@ -1663,15 +1630,15 @@
         "type": "function",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "job failed",
-        "func": "/*\nlet payload = msg.payload;\nmsg.payload = {};\nmsg.payload.state = payload.result.state;\n*/\n\nmsg.payload =  msg.payload.result.afi_status_text;\n\nnode.log(`Job ID ${msg.payload.id} failed to complete. ${msg.payload.text}`);\n\nreturn msg;",
+        "name": "failed",
+        "func": "/*\nlet payload = msg.payload;\nmsg.payload = {};\nmsg.payload.state = payload.result.state;\n*/\n\n/*  RESPONSE EXAMPLES\n\n[EXAMPLE #1]\n\npayload: object\nid: \"ac85e0b6-8174-480b-ae25-5578e6ad9e41\"\nstatus: \"Failed\"\nresult: object\n    afi_status: 7\n    afi_status_text: \"NothingChanged\"\n    dmi_status: 18\n    dmi_status_text: \"ApplicationLayerProtocolError\"\n\n[EXAMPLE #2]\n\npayload: object\nid: \"bf32be5c-90f2-4a6c-952c-396ea28666b9\"\nstatus: \"Failed\"\nresult: object\n    dmi_status: 15\n    dmi_status_text: \"ConnectionLost\"\n*/\n\n\n\n\nnode.log(`Job ID ${msg.payload.id} failed to complete. ${msg.payload.text}`);\n\nmsg.payload =  msg.payload.result.afi_status_text;\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1280,
+        "x": 1270,
         "y": 1500,
         "wires": [
             [
@@ -1684,7 +1651,7 @@
         "type": "debug",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "d2",
+        "name": "failed 🛑",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -1693,7 +1660,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
+        "x": 1280,
         "y": 1540,
         "wires": []
     },
@@ -1702,7 +1669,7 @@
         "type": "function",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "job completed",
+        "name": "completed",
         "func": "let payload = msg.payload;\nmsg.payload = {};\n\n\nswitch (msg.action) {\n    case \"state\": {\n        msg.payload = payload.result.state\n        break;\n    }\n    case \"lock\": {\n        //msg.payload = payload.result.afi_status_text;\n        msg.payload = \"Locked\";\n        break;\n    }\n    case \"unlock\": {\n        //msg.payload = payload.result.afi_status_text;\n        msg.payload = \"Unlocked\";\n        break;\n    }\n    case \"battery\": {\n        msg.payload = payload.result.battery_level;\n        break;\n    }    \n\n    default: {\n        node.warn(`The action ${msg.action} is not recognized`)\n    }\n}\n\nnode.log(`Job ID ${payload.id} completed successfully.`);\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
@@ -1710,7 +1677,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1300,
+        "x": 1290,
         "y": 1600,
         "wires": [
             [
@@ -1742,7 +1709,7 @@
         "type": "debug",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "d4",
+        "name": "otherwise",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -1751,7 +1718,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
+        "x": 1280,
         "y": 1740,
         "wires": []
     },
@@ -1843,7 +1810,7 @@
         "type": "debug",
         "z": "f743ddd681cc39eb",
         "g": "2d2fa55353313fbd",
-        "name": "d1",
+        "name": "too many retries ⚠️",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -1852,8 +1819,44 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
+        "x": 1310,
         "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "06ac3c53c11664e5",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "18a575426409155a",
+        "name": "new request ✅",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "0ed97942e5b05de4",
+        "type": "debug",
+        "z": "f743ddd681cc39eb",
+        "g": "2d2fa55353313fbd",
+        "name": "in progress ⌛",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 1340,
         "wires": []
     }
 ]
